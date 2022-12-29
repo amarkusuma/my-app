@@ -10,7 +10,7 @@
 /public/fonts
 /public/webfonts
 /public/scss
-/public/assets
+# /public/assets
 /public/svg
 /public/icons
 /public/vendors
