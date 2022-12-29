@@ -41,6 +41,18 @@ class SubSoalController extends Controller
         ]);
     }
 
+    public function checkValueAnswer(Request $request, String $answer) {
+        if ($request->option_A == $answer) {
+            return 'A';
+        }else if ($request->option_B == $answer) {
+            return 'B';
+        }else if ($request->option_C == $answer) {
+            return 'C';
+        }else if ($request->option_D == $answer) {
+            return 'D';
+        }
+    }
+
 
     public function store(Request $request)
     {
@@ -52,7 +64,7 @@ class SubSoalController extends Controller
           'correct_answer' => 'required',
         ]);
 
-        $validate = array_merge($validate, [ 'correct_option' => 'B']);
+        $validate = array_merge($validate, [ 'correct_option' => $this->checkValueAnswer($request, $request->correct_answer)]);
 
         SubSoal::create($validate);
 
@@ -63,9 +75,24 @@ class SubSoalController extends Controller
     {
         $data = SubSoal::find($id);
 
+        $options = [];
+        $options[0]['id'] = 1;
+        $options[0]['value'] = $data->option_A;
+        $options[0]['text'] = $data->option_A;
+        $options[1]['id'] = 2;
+        $options[1]['value'] = $data->option_B;
+        $options[1]['text'] = $data->option_B;
+        $options[2]['id'] = 3;
+        $options[2]['value'] = $data->option_C;
+        $options[2]['text'] = $data->option_C;
+        $options[3]['id'] = 4;
+        $options[3]['value'] = $data->option_D;
+        $options[3]['text'] = $data->option_D;
+        
         return view('pages.sub_soal.edit', [
             'data' => $data,
-            'bank_soal_id' => $bank_soal_id
+            'bank_soal_id' => $bank_soal_id,
+            'options' => $options,
         ]);
     }
 
@@ -80,6 +107,9 @@ class SubSoalController extends Controller
         ]);
 
         $sub_soal = SubSoal::find($id);
+
+        $validate = array_merge($validate, [ 'correct_option' => $this->checkValueAnswer($request, $request->correct_answer)]);
+        
         $sub_soal->update($validate);
 
         return redirect()->route('sub-soal.index', $request->bank_soal_id);

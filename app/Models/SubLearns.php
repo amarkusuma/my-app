@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class SubLearns extends Model
 {
@@ -22,7 +23,7 @@ class SubLearns extends Model
 
     public function getPdfUrlAttribute()
     {
-        $status = file_exists(public_path() . '/storage/'.self::FILE_PATH . $this->pdf);
+        $status = Storage::disk('local')->exists(self::FILE_PATH . $this->pdf);
         if ($status && $this->pdf) {
             return asset('storage/'.self::FILE_PATH . $this->pdf);
         } else {

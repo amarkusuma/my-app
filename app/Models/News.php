@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
@@ -23,7 +24,7 @@ class News extends Model
 
     public function getImageUrlAttribute()
     {
-        $status = file_exists(public_path() . '/storage/'.self::IMAGE_PATH . $this->image);
+        $status = Storage::disk('local')->exists(self::IMAGE_PATH . $this->image);
         if ($status && $this->image) {
             return asset('storage/'.self::IMAGE_PATH . $this->image);
         } else {

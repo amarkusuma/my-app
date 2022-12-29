@@ -44,14 +44,14 @@ class SubLearnController extends Controller
         ]);
     }
 
-
     public function store(Request $request)
     {
-        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'url_pdf', 'link_youtube', 'bank_soal_id']);
+        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id']);
 
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
+          'pdf' => 'nullable|max:51200|mimes:pdf,PDF'
         ]);
 
         if ($request->hasFile('pdf')) {
@@ -77,6 +77,7 @@ class SubLearnController extends Controller
     {
         $data = SubLearns::find($id);
         $bank_soal = BankSoal::get();
+        
         return view('pages.sub_learn.edit', [
             'data' => $data,
             'learn_id' => $learn_id,
@@ -86,11 +87,12 @@ class SubLearnController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'url_pdf', 'link_youtube', 'bank_soal_id']);
+        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id']);
 
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
+          'pdf' => 'nullable|max:51200|mimes:pdf,PDF'
         ]);
 
         $sub_learn = SubLearns::find($id);

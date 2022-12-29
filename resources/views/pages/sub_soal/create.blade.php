@@ -55,6 +55,7 @@
                             <label for="correct_answer">Correct Answer</label>
                             {{-- <input class="form-control @error('correct_answer') is-invalid @enderror" name="correct_answer" id="correct_answer" type="text" placeholder="Input correct_answer"> --}}
                             <select class="form-control @error('correct_answer') is-invalid @enderror" name="correct_answer" id="correct_answer">
+                                <option value="">Please select</option>
                             </select>
                             @if($errors->has('correct_answer'))
                                 <div class="invalid-feedback">{{ $errors->first('correct_answer') }}</div>

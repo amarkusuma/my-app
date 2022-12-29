@@ -32,7 +32,7 @@ if(!function_exists('renderDropdown')){
 
 
         <div class="c-sidebar-brand">
-            <img class="c-sidebar-brand-full" src="{{ url('/assets/brand/coreui-base-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
+            <img class="c-sidebar-brand-full rounded-lg" style="height: 50px;width: 50px !important" src="{{ url("/assets/img/logo/logo.png") }}" width="118" height="46" alt="CoreUI Logo">
             <img class="c-sidebar-brand-minimized" src="{{ url('assets/brand/coreui-signet-white.svg') }}" width="118" height="46" alt="CoreUI Logo">
         </div>
         <ul class="c-sidebar-nav">

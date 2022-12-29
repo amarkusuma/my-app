@@ -2,7 +2,7 @@
 <html>
 <head>
 {{-- <link rel="stylesheet" href="styles.css"> --}}
-<link rel="icon" href="{{ asset('assets/img/logo/logo.png') }}">
+<link rel="icon" href="{{ url('assets/brand/logo.png') }}">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 {{-- <script src="password.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
@@ -21,7 +21,12 @@
                     <div class="myform form ">
                         <div class="logo mb-5">
                             <center>
-                            <img src="https://i.imgur.com/EHEvezf.png?s=wa" class="mb-3 mt-4" alt="images2" width="75" height="75">
+                                <div>
+                                    <img src="{{ url('assets/img/logo/logo.png') }}" class="mb-2 mt-4 rounded" alt="images2" width="85" height="85">
+                                </div>
+                                <div>
+                                    <img src="https://i.imgur.com/EHEvezf.png?s=wa" class="mb-3 mt-3" alt="images2" width="45" height="45">
+                                </div>
                             </center>
                             <div class="col-md-12 text-center">
                                 <h4 style="color:#4B5563;" class="mb-3 mt-2"><b>{{$title}}</b></h4>
