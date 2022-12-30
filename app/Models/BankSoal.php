@@ -14,4 +14,14 @@ class BankSoal extends Model
     protected $fillable = [
       'name'
     ];
+
+    public function sub_learn()
+    {
+      return $this->hasOne(SubLearns::class, 'bank_soal_id', 'id'); 
+    }
+
+    public function sub_soal()
+    {
+      return $this->hasMany(SubSoal::class, 'id'); 
+    }
 }

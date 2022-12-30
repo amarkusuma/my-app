@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h5><strong>Sub Soal Form</strong></h5>
+                    <h5><strong>Sub Learn Form</strong></h5>
                 </div>
 
                 <form method="POST" action="{{route('sub-learn.store')}}" enctype="multipart/form-data">
