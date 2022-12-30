@@ -30,4 +30,19 @@ class SubLearns extends Model
             return null;
         }
     }
+
+    public function learn()
+    {
+        return $this->belongsTo(Learns::class, 'learn_id');
+    }
+
+    public function bank_soal()
+    {
+        return $this->belongsTo(BankSoal::class, 'bank_soal_id');
+    }
+
+    // public function sub_soal()
+    // {
+    //     return $this->hasMany(SubSoal::class, 'bank_soal_id', 'id');
+    // }
 }
