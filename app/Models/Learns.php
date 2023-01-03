@@ -12,7 +12,7 @@ class Learns extends Model
     protected $table = 'learns';
 
     protected $fillable = [
-      'name', 'level', 'price', 'discount'
+      'name', 'level', 'price', 'discount', 'activated'
     ];
 
 }

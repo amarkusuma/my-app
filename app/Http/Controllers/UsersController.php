@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -89,5 +90,31 @@ class UsersController extends Controller
             $user->delete();
         }
         return redirect()->route('users.index');
+    }
+
+    public function changePasswordForm()
+    {
+        return view('dashboard.admin.userChangePassword');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'email'      => 'required|email|exists:users,email',
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password',
+        ]);
+
+        $user = User::where('email', $request->input('email'))->first();
+
+        try {
+            $user->password = Hash::make($request->password);
+            $user->save();
+            
+            return redirect('/');
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors(['message' => $th->getMessage()]);
+        }
+        
     }
 }

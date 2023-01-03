@@ -14,7 +14,7 @@ class SubLearns extends Model
     protected $table = 'sub_learns';
 
     protected $fillable = [
-      'learn_id', 'bank_soal_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube',
+      'learn_id', 'bank_soal_id', 'limit_soal', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'activated',
     ];
 
     protected $appends = [

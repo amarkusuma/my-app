@@ -28,7 +28,7 @@ CoreUI is meant to be the UX game changer. Pure & transparent code is devoid of 
 
 CoreUI is built on top of Bootstrap 4 and supports popular frameworks.
 
-* [CoreUI Free Bootstrap Admin Template](https://github.com/coreui/coreui-free-bootstrap-admin-template)
+* [Autismart Admin Page](https://github.com/coreui/coreui-free-bootstrap-admin-template)
 * [CoreUI Free Angular Admin Template](https://github.com/coreui/coreui-free-angular-admin-template)
 * [CoreUI Free Laravel Admin Template](https://github.com/coreui/coreui-free-laravel-admin-template)
 * [CoreUI Free React.js Admin Template](https://github.com/coreui/coreui-free-react-admin-template)

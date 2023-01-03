@@ -23,6 +23,7 @@
                     {{-- {{$dataTable->table()}} --}}
 
                     <div class="mb-4">
+                        <a href="{{route('bank-soal.index')}}" class="btn btn btn-secondary" type="button"><i class="cil-arrow-circle-left"></i> Back</a>
                         <a class="btn btn btn-primary" href="{{ route('sub-soal.create', $bank_soal_id) }}">Add sub soal</a>
                     </div>
                     <table class="table table-responsive-sm table-striped dataTableBuilder">

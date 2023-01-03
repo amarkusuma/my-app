@@ -23,6 +23,7 @@
                     {{-- {{$dataTable->table()}} --}}
 
                     <div class="mb-4">
+                        <a href="{{route('learns.index')}}" class="btn btn btn-secondary" type="button"><i class="cil-arrow-circle-left"></i> Back</a>
                         <a class="btn btn btn-primary" href="{{ route('sub-learn.create', $learn_id) }}">Add sub Learn</a>
                     </div>
                     <table class="table table-responsive-sm table-striped dataTableBuilder">
@@ -32,6 +33,7 @@
                                 <th>Learn</th>
                                 <th>Sub Learn</th>
                                 <th>Min Correct</th>
+                                <th>Max Soal</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
                         </thead>
@@ -61,6 +63,7 @@
                   {data: 'learn_name', name: 'learn_name'},
                   {data: 'sub_name', name: 'sub_name'},
                   {data: 'min_correct', name: 'min_correct'},
+                  {data: 'max_soal', name: 'max_soal'},
                   {
                     data: 'action',
                     name: 'action',

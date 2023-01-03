@@ -47,6 +47,14 @@
                                 <div class="invalid-feedback">{{ $errors->first('discount') }}</div>
                             @endif
                         </div>
+
+                        <div class="form-group d-flex align-items-center">
+                            <label class="c-switch c-switch-3d c-switch-primary">
+                                <input class="c-switch-input" type="checkbox" name="activated" checked=""><span class="c-switch-slider"></span>
+                            </label>
+                            <label class="mx-3" for="discount-input">Activated</label>
+                        </div>
+                        
                     </div>
                     <div class="card-footer">
                         <button class="btn btn btn-primary" type="submit"> Submit</button>

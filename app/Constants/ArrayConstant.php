@@ -57,10 +57,6 @@ class ArrayConstant
 
     const LEVEL = array(
         [
-            'value' => 0,
-            'label' => 'InActive',
-        ],
-        [
             'value' => 1,
             'label' => 'Basic',
         ],

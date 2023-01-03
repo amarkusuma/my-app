@@ -25,12 +25,15 @@ class SubLearnController extends Controller
                 ->editColumn('learn_name', function($row){
                    return $row->learn ? $row->learn->name : null;
                 })
+                ->addColumn('max_soal', function($row){
+                    return $row->limit_soal ? $row->limit_soal.' Soal ':  null;
+                 })
                 ->addColumn('action', function($row){
                     $actionBtn = '<div class="d-flex justify-content-between"><a href="'.route('sub-learn.edit', [ 'id' => $row->id, 'learn_id' => $row->learn_id ]).'" class="edit btn btn-success btn-sm">Edit</a>
                     <a href="javascript:void(0)" onclick="deleteThis(event)" class="delete btn btn-danger btn-sm" data-id="'.$row->id.'">Delete</a></div>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'learn_name'])
+                ->rawColumns(['action', 'learn_name', 'max_soal'])
                 ->make(true);
         }
     }
@@ -46,7 +49,7 @@ class SubLearnController extends Controller
 
     public function store(Request $request)
     {
-        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id']);
+        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id', 'limit_soal', 'activated']);
 
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
@@ -68,6 +71,10 @@ class SubLearnController extends Controller
             ]);
         }
 
+        $validate = array_merge($validate, [
+            'activated' => $request->activated ? true : false,
+        ]);
+
         SubLearns::create($validate);
 
         return redirect()->route('sub-learn.index', $request->learn_id);
@@ -87,7 +94,7 @@ class SubLearnController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id']);
+        $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id', 'limit_soal', 'activated']);
 
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
@@ -113,6 +120,10 @@ class SubLearnController extends Controller
                 'pdf' => $pdfName,
             ]);
         }
+
+        $validate = array_merge($validate, [
+            'activated' => $request->activated ? true : false,
+        ]);
 
         $sub_learn->update($validate);
 

@@ -23,11 +23,7 @@
                             <th>Hierarchy</th>
                             <th>Created at</th>
                             <th>Updated at</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th style="width: 20%" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,27 +42,22 @@
                                     {{ $role->updated_at }}
                                 </td>
                                 <td>
-                                    <a class="btn btn-success" href="{{ route('roles.up', ['id' => $role->id]) }}">
-                                        <i class="cil-arrow-thick-top"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-success" href="{{ route('roles.down', ['id' => $role->id]) }}">
-                                        <i class="cil-arrow-thick-bottom"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('roles.show', $role->id ) }}" class="btn btn-primary">Show</a>
-                                </td>
-                                <td>
-                                    <a href="{{ route('roles.edit', $role->id ) }}" class="btn btn-primary">Edit</a>
-                                </td>
-                                <td>
-                                <form action="{{ route('roles.destroy', $role->id ) }}" method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <button class="btn btn-danger">Delete</button>
-                                </form>
+                                    <div class="d-flex">
+                                        <a class="btn btn-success mr-2" href="{{ route('roles.up', ['id' => $role->id]) }}">
+                                            <i class="cil-arrow-thick-top"></i>
+                                        </a>
+                                        <a class="btn btn-success mr-2" href="{{ route('roles.down', ['id' => $role->id]) }}">
+                                            <i class="cil-arrow-thick-bottom"></i>
+                                        </a>
+                                        <a href="{{ route('roles.show', $role->id ) }}" class="btn btn-primary mr-2">Show</a>
+                                        <a href="{{ route('roles.edit', $role->id ) }}" class="btn btn-primary mr-2">Edit</a>
+                                    
+                                        <form action="{{ route('roles.destroy', $role->id ) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

@@ -146,8 +146,8 @@ class MenusNewTableSeeder extends Seeder
         $this->beginDropdown('user,admin', 'Menus', 'cil-star');
             $this->insertLink('user,admin', 'News Category',   '/news-category');
             $this->insertLink('user,admin', 'News',   '/news');
-            $this->insertLink('user,admin', 'Learns',   '/learns');
             $this->insertLink('user,admin', 'Bank Soal',   '/bank-soal');
+            $this->insertLink('user,admin', 'Learns',   '/learns');
         $this->endDropdown();
 
         /* Create top menu */

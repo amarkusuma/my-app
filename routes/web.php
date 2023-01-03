@@ -19,6 +19,7 @@ use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\SubLearnController;
 use App\Http\Controllers\SubSoalController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 
 Route::group(['middleware' => ['get.menu']], function () {
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
         Route::resource('news', 'NewsController');
         Route::get('news-list', [NewsController::class, 'getNews'])->name('news.list');
+        Route::post('update-slide/{id}', [NewsController::class, 'slide'])->name('news.update.slide');
 
         Route::resource('learns', 'LearnsController');
         Route::get('learns-list', [LearnsController::class, 'getLearns'])->name('learns.list');
@@ -85,4 +87,7 @@ Route::group(['middleware' => ['get.menu']], function () {
 
 Route::name('backend.')->group(function() {
     Route::get('user/verification', [VerificationController::class, 'verification'])->name('verification');
+    Route::get('change-password', [UsersController::class, 'changePasswordForm'])->name('change_password');
+    Route::post('change-password', [UsersController::class, 'changePassword'])->name('update.change_password');
+        
 });

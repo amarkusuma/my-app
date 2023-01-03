@@ -48,10 +48,11 @@
                 <svg class="c-icon mr-2">
                   <use xlink:href="{{ url('/icons/sprites/free.svg#cil-user') }}"></use>
                 </svg> Profile</a>
-                <a class="dropdown-item" href="#">
-                <svg class="c-icon mr-2">
-                  <use xlink:href="{{ url('/icons/sprites/free.svg#cil-settings') }}"></use>
-                </svg> Change Password</a>
+                <a class="dropdown-item" href="{{route('backend.change_password')}}">
+                  <svg class="c-icon mr-2">
+                    <use xlink:href="{{ url('/icons/sprites/free.svg#cil-settings') }}"></use>
+                  </svg> Change Password
+                </a>
               <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">
                     <svg class="c-icon mr-2">
@@ -64,7 +65,8 @@
         <div class="c-subheader px-3">
           <ol class="breadcrumb border-0 m-0">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <?php $segments = ''; ?>
+            
+            {{-- <?php $segments = ''; ?>
             @for($i = 1; $i <= count(Request::segments()); $i++)
                 <?php $segments .= '/'. Request::segment($i); ?>
                 @if($i < count(Request::segments()))
@@ -72,7 +74,19 @@
                 @else
                     <li class="breadcrumb-item active">{{ Request::segment($i) }}</li>
                 @endif
-            @endfor
+            @endfor --}}
+
+            <?php  $routes = explode('.', Request::route()->getName()) ?>
+            @if (count($routes) > 0)
+              @for($i = 0; $i < count($routes); $i++)
+                @if($i < count($routes))
+                    <li class="breadcrumb-item">{{ $routes[$i] }}</li>
+                @else
+                    <li class="breadcrumb-item active">{{ $routes[$i] }}</li>
+                @endif
+              @endfor
+            @endif
+            
           </ol>
         </div>
     </header>

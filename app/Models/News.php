@@ -15,7 +15,7 @@ class News extends Model
 
     protected $fillable = [
       'news_category_id', 'title', 'slug', 'popular_counts',
-      'date_text', 'image', 'author_by', 'post_by', 'description'
+      'date_text', 'image', 'author_by', 'post_by', 'description', 'slide'
     ];
 
     protected $appends = [

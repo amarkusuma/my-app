@@ -28,6 +28,7 @@
                                 <th>Post By</th>
                                 <th>Image</th>
                                 <th>Date</th>
+                                <th>Slide</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -60,6 +61,7 @@
                   {data: 'post_by', name: 'post_by'},
                   {data: 'image', name: 'image'},
                   {data: 'date_text', name: 'date_text'},
+                  {data: 'slide', name: 'slide'},
                   {
                       data: 'action',
                       name: 'action',
@@ -94,15 +96,37 @@
                         "id": id
                     },
                     success: function (response) {
-                    //   console.log(response)
-                    $('.dataTableBuilder').DataTable().ajax.reload();
+                        //   console.log(response)
+                        $('.dataTableBuilder').DataTable().ajax.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus, errorThrown);
+                        console.log(textStatus, errorThrown);
                     }
                 });
             }
+        }
 
+        function changeSlide(e) {
+            const id = e.target.getAttribute('id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: `/update-slide/${id}`,
+                type: 'POST',
+                data: {
+                    '_method': 'POST',
+                    "id": id
+                },
+                success: function (response) {
+                    $('.dataTableBuilder').DataTable().ajax.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+            });
         }
       </script>
 @endpush

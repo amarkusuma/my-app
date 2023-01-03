@@ -45,7 +45,23 @@ class NewsController extends Controller
                     $image = '<img style="width: 50px;height:50px" class="rounded" src="'.$row->image_url.'" alt="">';
                     return $image;
                 })
-                ->rawColumns(['action', 'news_category', 'image'])
+                ->addColumn('slide', function($row){
+                    if ($row->slide) {
+                        $slide = '<div class="form-check text-center">
+                            <input class="form-check-input slide" type="checkbox" onchange="changeSlide(event)" checked  id="'.$row->id.'">
+                            <label class="form-check-label" for="flexCheckDefault"> 
+                            </label>
+                        </div>';
+                    }else {
+                        $slide = '<div class="form-check text-center">
+                            <input class="form-check-input slide" type="checkbox" onchange="changeSlide(event)"  id="'.$row->id.'">
+                            <label class="form-check-label" for="flexCheckDefault"> 
+                            </label>
+                        </div>';
+                    }
+                    return $slide;
+                })
+                ->rawColumns(['action', 'news_category', 'image', 'slide'])
                 ->make(true);
         }
     }
@@ -189,6 +205,21 @@ class NewsController extends Controller
 
                 return redirect()->route('news.index');
             }
+        } catch (\Throwable $th) {
+            return $this->failure($th->getMessage());
+        }
+    }
+
+    public function slide(Request $request, $id)
+    {
+        $news = News::find($id);
+
+        try {
+            $news->slide = !$news->slide;
+            $news->save();
+
+            return $this->success('update slide news successfull', $news);
+            
         } catch (\Throwable $th) {
             return $this->failure($th->getMessage());
         }

@@ -37,15 +37,15 @@ class LearnsController extends Controller
                     }
 
                     if ($row->level == ArrayConstant::LEVEL[0]['value']) {
-                        return '<span class="badge badge-pill badge-secondary">'.$level.'</span>';
-                    }
-                    if ($row->level == ArrayConstant::LEVEL[1]['value']) {
                         return '<span class="badge badge-pill badge-warning">'.$level.'</span>';
                     }
-                    if ($row->level == ArrayConstant::LEVEL[2]['value']) {
+                    if ($row->level == ArrayConstant::LEVEL[1]['value']) {
                         return '<span class="badge badge-pill badge-success">'.$level.'</span>';
                     }
-                    return '<span class="badge badge-pill badge-primary">'.$level.'</span>';
+                    if ($row->level == ArrayConstant::LEVEL[2]['value']) {
+                        return '<span class="badge badge-pill badge-primary">'.$level.'</span>';
+                    }
+                    return '<span class="badge badge-pill badge-secondary">'.$level.'</span>';
                 })
                 ->editColumn('price', function($row){
                     return number_format($row->price,2,",",".");
@@ -71,13 +71,17 @@ class LearnsController extends Controller
 
     public function store(Request $request)
     {
-        $validate = $request->only(['name', 'level', 'price', 'discount']);
+        $validate = $request->only(['name', 'level', 'price', 'discount', 'activated']);
 
         $request->validate([
           'name' => 'required',
           'level' => 'required',
           'price' => 'required',
           'discount' => 'nullable',
+        ]);
+
+        $validate = array_merge($validate, [
+            'activated' => $request->activated ? true : false,
         ]);
 
         Learns::create($validate);
@@ -105,13 +109,17 @@ class LearnsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validate = $request->only(['name', 'level', 'price', 'discount']);
-
+        $validate = $request->only(['name', 'level', 'price', 'discount', 'activated']);
+        
         $request->validate([
             'name' => 'required',
             'level' => 'required',
             'price' => 'required',
             'discount' => 'nullable',
+        ]);
+
+        $validate = array_merge($validate, [
+            'activated' => $request->activated ? true : false,
         ]);
 
         $learn = Learns::find($id);
