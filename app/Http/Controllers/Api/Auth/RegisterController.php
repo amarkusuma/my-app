@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Constants\ArrayConstant;
 use App\Http\Controllers\Controller;
 use App\Mail\VerificationMail;
+use App\Models\Learns;
+use App\Models\Member;
+use App\Models\MemberLearn;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -44,15 +49,39 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
-
+        // $this->validator($request->all())->validate();
+        // $validate = $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:8', 'confirmed'],
+        // ]);
 
         try {
 
+            $learn = Learns::get();
+            $basic = collect($learn)->where('level', ArrayConstant::LEVEL[0]['value'])->first();
+            
             $user = $this->create($request->all());
-
+            
             if ($user) {
                 $token = $user->createToken('auth_token')->plainTextToken;
+
+                $member = Member::create([
+                    'user_id' => $user->id,
+                    'learn_id' => $basic->id,
+                    'level' => 1,
+                    'learn' => $basic->name,
+                    'start_date' => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
+                
+                for ($i=0; $i < count($learn) ; $i++) { 
+                    
+                    $member_learn = MemberLearn::create([
+                        'member_id' => $member->id,
+                        'learn_id' => $learn[$i]['id'],
+                        'start_date' => Carbon::now()->format('Y-m-d H:i:s'),
+                    ]);
+                }
 
                 $user->sendEmailVerificationNotification();
 

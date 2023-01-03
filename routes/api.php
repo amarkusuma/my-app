@@ -29,9 +29,10 @@ Route::name('api.')->group(function() {
     Route::get('user/verification', [LoginController::class, 'verification'])->name('verification');
     
     Route::get('get-question-learn', [QuestionController::class, 'questionSubLearn']);
-
-    Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::get('get-news', [NewsController::class, 'newsList']);
-    });
+    Route::get('get-news', [NewsController::class, 'newsList']);
+    
+    // Route::group(['middleware' => ['auth:sanctum']], function () {
+    //     Route::get('get-news', [NewsController::class, 'newsList']);
+    // });
 
 });
