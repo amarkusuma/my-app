@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-footer">
                         <button class="btn btn btn-primary" type="submit"> Submit</button>
-                        <a href="{{route('sub-learn.index', $data->bank_soal_id)}}" class="btn btn btn-secondary" type="button"><i class="cil-arrow-circle-left"></i> Back</a>
+                        <a href="{{route('sub-learn.index', $learn_id)}}" class="btn btn btn-secondary" type="button"><i class="cil-arrow-circle-left"></i> Back</a>
                     </div>
                 </form>
             </div>
