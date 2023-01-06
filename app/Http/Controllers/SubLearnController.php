@@ -54,9 +54,10 @@ class SubLearnController extends Controller
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
-          'pdf' => 'nullable|max:51200|mimes:pdf,PDF'
+          'pdf' => 'nullable|max:51200|mimes:pdf,PDF',
+          'video' => 'nullable',
         ]);
-
+        
         if ($request->hasFile('pdf')) {
 
             $pdfPath = $request->file('pdf')->store(SubLearns::FILE_PATH, 'local');
@@ -68,6 +69,18 @@ class SubLearnController extends Controller
 
             $validate = array_merge($validate, [
                 'pdf' => $pdfName,
+            ]);
+        }
+
+        if ($request->has('video')) {
+            $videoPath = $request->file('video')->store(SubLearns::VIDEO_PATH, 'local');
+            
+            $filename  = pathinfo($videoPath, PATHINFO_FILENAME);
+            $extension = pathinfo($videoPath, PATHINFO_EXTENSION);
+            $videoName = $filename . '.' . $extension;
+           
+            $validate = array_merge($validate, [
+                'video' => $videoName,
             ]);
         }
 
@@ -99,7 +112,8 @@ class SubLearnController extends Controller
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
-          'pdf' => 'nullable|max:51200|mimes:pdf,PDF'
+          'pdf' => 'nullable|max:51200|mimes:pdf,PDF',
+          'video' => 'nullable',
         ]);
 
         $sub_learn = SubLearns::find($id);
@@ -121,6 +135,23 @@ class SubLearnController extends Controller
             ]);
         }
 
+        if ($request->has('video')) {
+            $videoPath = $request->file('video')->store(SubLearns::VIDEO_PATH, 'local');
+            
+            $file = public_path('/storage/'.SubLearns::VIDEO_PATH.$sub_learn->video);
+            if (file_exists($file) && !empty($sub_learn->video)) {
+                unlink($file);
+            }
+
+            $filename  = pathinfo($videoPath, PATHINFO_FILENAME);
+            $extension = pathinfo($videoPath, PATHINFO_EXTENSION);
+            $videoName = $filename . '.' . $extension;
+           
+            $validate = array_merge($validate, [
+                'video' => $videoName,
+            ]);
+        }
+
         $validate = array_merge($validate, [
             'activated' => $request->activated ? true : false,
         ]);
@@ -138,6 +169,11 @@ class SubLearnController extends Controller
 
             $file = public_path('/storage/'.SubLearns::FILE_PATH.$sub_learn->pdf);
             if (file_exists($file) && !empty($sub_learn->pdf)) {
+                unlink($file);
+            }
+
+            $file = public_path('/storage/'.SubLearns::VIDEO_PATH.$sub_learn->video);
+            if (file_exists($file) && !empty($sub_learn->video)) {
                 unlink($file);
             }
 

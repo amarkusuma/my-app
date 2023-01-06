@@ -30,6 +30,7 @@ Route::name('api.')->group(function() {
     
     Route::get('get-question-learn', [QuestionController::class, 'questionSubLearn']);
     Route::get('get-news', [NewsController::class, 'newsList']);
+    Route::get('get-slide-news', [NewsController::class, 'slideNewsList']);
     
     // Route::group(['middleware' => ['auth:sanctum']], function () {
     //     Route::get('get-news', [NewsController::class, 'newsList']);

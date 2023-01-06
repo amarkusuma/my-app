@@ -11,14 +11,16 @@ class SubLearns extends Model
     use HasFactory;
 
     const FILE_PATH = 'files/sub-learn/';
+    const VIDEO_PATH = 'videos/sub-learn/';
     protected $table = 'sub_learns';
 
     protected $fillable = [
-      'learn_id', 'bank_soal_id', 'limit_soal', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'activated',
+      'learn_id', 'bank_soal_id', 'limit_soal', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'video', 'activated',
     ];
 
     protected $appends = [
        'pdf_url',
+       'video_url',
     ];
 
     public function getPdfUrlAttribute()
@@ -28,6 +30,16 @@ class SubLearns extends Model
             return asset('storage/'.self::FILE_PATH . $this->pdf);
         } else {
             return null;
+        }
+    }
+
+    public function getVideoUrlAttribute()
+    {
+        $status = Storage::disk('local')->exists(self::VIDEO_PATH . $this->video);
+        if ($status && $this->video) {
+            return asset('storage/'.self::VIDEO_PATH . $this->video);
+        } else {
+            return $this->link_youtube;
         }
     }
 

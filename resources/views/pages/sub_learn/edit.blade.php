@@ -47,9 +47,11 @@
                             @if($errors->has('pdf'))
                                 <div class="invalid-feedback">{{ $errors->first('pdf') }}</div>
                             @endif
-                            <div class="mt-2">
-                                <a href="{{$data->pdf_url}}" target="_blank" rel="noopener noreferrer">File PDF</a>
-                            </div>
+                            @if ($data->pdf_url)
+                                <div class="mt-2">
+                                    <a href="{{$data->pdf_url}}" target="_blank" rel="noopener noreferrer">Link File PDF</a>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group">
@@ -57,6 +59,19 @@
                             <input class="form-control @error('link_youtube') is-invalid @enderror" value="{{$data->link_youtube}}" name="link_youtube" id="link_youtube" type="text" placeholder="Input link youtube">
                             @if($errors->has('link_youtube'))
                                 <div class="invalid-feedback">{{ $errors->first('link_youtube') }}</div>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label for="video">Video</label>
+                            <input class="form-control @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
+                            @if($errors->has('video'))
+                                <div class="invalid-feedback">{{ $errors->first('video') }}</div>
+                            @endif
+                            @if ($data->video_url)
+                                <div class="mt-2">
+                                    <a href="{{$data->video_url}}" target="_blank" rel="noopener noreferrer">Link Video</a>
+                                </div>
                             @endif
                         </div>
 
@@ -75,6 +90,9 @@
                             <label class="mx-3" for="discount-input">Activated</label>
                         </div>
 
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <span class="value-progress">0</span></div>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button class="btn btn btn-primary" type="submit"> Submit</button>
@@ -86,3 +104,20 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+  <script>
+    $('.progress').hide();
+
+    var value_progess = $('.value-progress');
+    var progess_bar = $('.progress-bar');
+
+    $('button[type="submit"]').on('click', function(e) {
+        $('.progress').show();
+
+        value_progess.html('50%')
+        progess_bar.css('width', '50%');
+    });
+
+  </script>
+@endpush

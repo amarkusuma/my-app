@@ -14,4 +14,11 @@ class NewsController extends Controller
 
         return $this->success('get news data successfull', $news);
     }
+
+    public function slideNewsList()
+    {
+        $slide = News::with('news_categories')->where('slide', true)->get();
+
+        return $this->success('get slide news data successfull', $slide);
+    }
 }
