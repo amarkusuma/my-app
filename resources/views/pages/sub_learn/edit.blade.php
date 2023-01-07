@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <label for="pdf">PDF</label>
                             <div class="custom-file">
-                                <input class="form-control @error('pdf') is-invalid @enderror" name="pdf" id="pdf" type="file" accept=".PDF,.pdf" placeholder="Input pdf">
+                                <input class="form-control custom-file-input @error('pdf') is-invalid @enderror" name="pdf" id="pdf" type="file" accept=".PDF,.pdf" placeholder="Input pdf">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file pdf</label>
                             </div>
                             @if($errors->has('pdf'))
@@ -68,7 +68,7 @@
                         <div class="form-group">
                             <label for="video">Video</label>
                             <div class="custom-file">
-                                <input class="form-control @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
+                                <input class="form-control custom-file-input @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose video</label>
                             </div>
                             @if($errors->has('video'))
