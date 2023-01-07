@@ -200,7 +200,7 @@
         var form = $(this).closest('form');
         var formData = new FormData(form[0]);
 
-        let progess_data = 0;
+        var progess_data = 0;
 
         value_progess.html(progess_data+'%')
         progess_bar.css('width', progess_data+'%');
@@ -212,6 +212,8 @@
 
                 value_progess.html(progess_data+'%')
                 progess_bar.css('width', progess_data+'%');
+            }else {
+                clearInterval(refreshInterval1);
             }
             
         }, 1000);
@@ -224,7 +226,7 @@
             contentType: false,
             success: function (response) {
                 const { data, message } = response;
-                
+                console.log(progess_data)
                 var refreshInterval2 = setInterval(() => {
                     if (progess_data < 100) {
                         progess_data += 10;
@@ -232,6 +234,7 @@
                         value_progess.html(progess_data+'%')
                         progess_bar.css('width', progess_data+'%');
                     }else {
+                        location.reload();
                         $(location).prop('href', '/sub-learn/'+ data.learn_id)
                     }
                 }, 100);

@@ -170,7 +170,7 @@
         var form = $(this).closest('form');
         var formData = new FormData(form[0]);
 
-        let progess_data = 0;
+        var progess_data = 0;
 
         value_progess.html(progess_data+'%')
         progess_bar.css('width', progess_data+'%');
@@ -182,11 +182,11 @@
 
                     value_progess.html(progess_data+'%')
                     progess_bar.css('width', progess_data+'%');
+                }else {
+                    clearInterval(refreshInterval1);
                 }
                 
             }, 1000);
-
-            // clearInterval(refreshInterval1);
         
         $.ajax({
             url: form.attr('action'),
@@ -204,6 +204,7 @@
                         value_progess.html(progess_data+'%')
                         progess_bar.css('width', progess_data+'%');
                     }else {
+                        location.reload();
                         $(location).prop('href', '/sub-learn/'+ data.learn_id)
                     }
                 }, 100);
