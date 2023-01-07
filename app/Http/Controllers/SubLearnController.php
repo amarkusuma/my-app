@@ -51,7 +51,7 @@ class SubLearnController extends Controller
     {
         $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id', 'limit_soal', 'activated']);
 
-        // dd($request->all());
+        // return response()->json($request->all());
 
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
@@ -115,9 +115,10 @@ class SubLearnController extends Controller
             'activated' => $request->activated ? true : false,
         ]);
 
-        SubLearns::create($validate);
+        $sub_learn = SubLearns::create($validate);
 
-        return redirect()->route('sub-learn.index', $request->learn_id);
+        // return redirect()->route('sub-learn.index', $request->learn_id);
+        return $this->success('create data successfully', $sub_learn);
     }
 
     public function edit($id, $learn_id)
@@ -230,7 +231,8 @@ class SubLearnController extends Controller
 
         $sub_learn->update($validate);
 
-        return redirect()->route('sub-learn.index', $request->learn_id);
+        // return redirect()->route('sub-learn.index', $request->learn_id);
+        return $this->success('update data successfully', $sub_learn);
     }
 
     public function destroy($id)

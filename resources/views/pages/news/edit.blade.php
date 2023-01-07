@@ -42,7 +42,10 @@
 
                         <div class="form-group">
                             <label for="image">Image</label>
-                            <input class="form-control @error('image') is-invalid @enderror" name="image" id="image" type="file" placeholder="Input image">
+                            <div class="custom-file">
+                                <input class="form-control custom-file-input @error('image') is-invalid @enderror" name="image" id="image" type="file" accept=".png,.PNG,.jpg,.jpg,.jpeg,.JPEG" placeholder="Input image">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose image</label>    
+                            </div>
                             @if($errors->has('image'))
                                 <div class="invalid-feedback">{{ $errors->first('image') }}</div>
                             @endif

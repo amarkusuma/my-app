@@ -43,7 +43,10 @@
                         </div>
                         <div class="form-group">
                             <label for="pdf">PDF</label>
-                            <input class="form-control @error('pdf') is-invalid @enderror" name="pdf" id="pdf" type="file" accept=".PDF,.pdf" placeholder="Input pdf">
+                            <div class="custom-file">
+                                <input class="form-control @error('pdf') is-invalid @enderror" name="pdf" id="pdf" type="file" accept=".PDF,.pdf" placeholder="Input pdf">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file pdf</label>
+                            </div>
                             @if($errors->has('pdf'))
                                 <div class="invalid-feedback">{{ $errors->first('pdf') }}</div>
                             @endif
@@ -64,7 +67,10 @@
 
                         <div class="form-group">
                             <label for="video">Video</label>
-                            <input class="form-control @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
+                            <div class="custom-file">
+                                <input class="form-control @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose video</label>
+                            </div>
                             @if($errors->has('video'))
                                 <div class="invalid-feedback">{{ $errors->first('video') }}</div>
                             @endif
@@ -90,10 +96,6 @@
                             <label class="mx-3" for="discount-input">Activated</label>
                         </div>
 
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <span class="value-progress">0</span></div>
-                        </div>
-
                         <div>
                             <h6 class="mb-3">Upload Images</h6>
                             <div class='repeater'>
@@ -105,7 +107,7 @@
                                                 <div class="input-group">
                                                     <div class="custom-file">
                                                         <input type="hidden" name="{{"soal_images[$index][id]"}}" value="{{$data->images[$index]['id']}}" class="form-control" id="inputid">
-                                                        <input type="file" name="{{"soal_images[$index][image]"}}" class="custom-file-input" id="inputGroupFile01">
+                                                        <input type="file" name="{{"soal_images[$index][image]"}}" class="custom-file-input" accept=".png,.PNG,.jpg,.jpg,.jpeg,.JPEG" id="inputGroupFile01">
                                                         <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                                                     </div>
                                                 </div>
@@ -123,7 +125,7 @@
                                         <div class="d-flex">
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" name="image" class="custom-file-input" id="inputGroupFile01">
+                                                    <input type="file" name="image" class="custom-file-input" accept=".png,.PNG,.jpg,.jpg,.jpeg,.JPEG" id="inputGroupFile01">
                                                     <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
                                                 </div>
                                             </div>
@@ -137,9 +139,13 @@
                             </div>
                         </div>
 
+                        <div class="progress my-4 mb-n2">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <span class="value-progress">0</span></div>
+                        </div>
+
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn btn-primary" type="submit"> Submit</button>
+                        <button class="btn btn btn-primary btn-submit" type="button"> Submit</button>
                         <a href="{{route('sub-learn.index', $learn_id)}}" class="btn btn btn-secondary" type="button"><i class="cil-arrow-circle-left"></i> Back</a>
                     </div>
                 </form>
@@ -156,12 +162,12 @@
     var value_progess = $('.value-progress');
     var progess_bar = $('.progress-bar');
 
-    $('button[type="submit"]').on('click', function(e) {
-        $('.progress').show();
+    // $('button[type="submit"]').on('click', function(e) {
+    //     $('.progress').show();
 
-        value_progess.html('50%')
-        progess_bar.css('width', '50%');
-    });
+    //     value_progess.html('50%')
+    //     progess_bar.css('width', '50%');
+    // });
 
     $(document).ready(function () {
         $('.repeater').repeater({
@@ -185,6 +191,55 @@
             },
             isFirstItemUndeletable: true
         })
+    });
+
+    $('.btn-submit').on('click', function (e) {
+        e.preventDefault();
+        $('.progress').show();
+
+        var form = $(this).closest('form');
+        var formData = new FormData(form[0]);
+
+        let progess_data = 0;
+
+        value_progess.html(progess_data+'%')
+        progess_bar.css('width', progess_data+'%');
+
+        
+        var refreshInterval1 = setInterval(() => {
+            if (progess_data <= 80) {
+                progess_data += 1;
+
+                value_progess.html(progess_data+'%')
+                progess_bar.css('width', progess_data+'%');
+            }
+            
+        }, 1000);
+        
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                const { data, message } = response;
+                
+                var refreshInterval2 = setInterval(() => {
+                    if (progess_data < 100) {
+                        progess_data += 10;
+
+                        value_progess.html(progess_data+'%')
+                        progess_bar.css('width', progess_data+'%');
+                    }else {
+                        $(location).prop('href', '/sub-learn/'+ data.learn_id)
+                    }
+                }, 100);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
     });
 
   </script>

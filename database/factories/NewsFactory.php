@@ -33,7 +33,7 @@ class NewsFactory extends Factory
             'slug'      => Str::slug($slug),
             'description'       => $this->faker->paragraph(4,true),
             'popular_counts' => $this->faker->numberBetween(10, 100),
-            'date_text' => $this->faker->randomElement(['14 Desember 2021', '20 November 2022', '11 Januari 2022']),
+            'date_text' => $this->faker->randomElement(['14 Des 2021 20:09', '20 Nov 2022 11.30', '11 Jan 2022 12.11']),
             'author_by' => $this->faker->name(),
             'post_by'  =>  $this->faker->name(),
         ];
