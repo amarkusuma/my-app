@@ -12,10 +12,12 @@ class SubLearns extends Model
 
     const FILE_PATH = 'files/sub-learn/';
     const VIDEO_PATH = 'videos/sub-learn/';
+    const SOAL_IMAGE_PATH = 'images/sub-learn/';
+
     protected $table = 'sub_learns';
 
     protected $fillable = [
-      'learn_id', 'bank_soal_id', 'limit_soal', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'video', 'activated',
+      'learn_id', 'bank_soal_id', 'limit_soal', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'video', 'activated', 'images'
     ];
 
     protected $appends = [
@@ -23,11 +25,26 @@ class SubLearns extends Model
        'video_url',
     ];
 
+    protected $casts = [
+        'images' => 'array',
+    ];
+
+
     public function getPdfUrlAttribute()
     {
         $status = Storage::disk('local')->exists(self::FILE_PATH . $this->pdf);
         if ($status && $this->pdf) {
             return asset('storage/'.self::FILE_PATH . $this->pdf);
+        } else {
+            return null;
+        }
+    }
+
+    public function getSoalImageUrlAttribute($image)
+    {
+        $status = Storage::disk('local')->exists(self::SOAL_IMAGE_PATH . $image);
+        if ($status && $image) {
+            return asset('storage/'.self::SOAL_IMAGE_PATH . $image);
         } else {
             return null;
         }

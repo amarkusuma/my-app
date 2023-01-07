@@ -93,6 +93,50 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <span class="value-progress">0</span></div>
                         </div>
+
+                        <div>
+                            <h6 class="mb-3">Upload Images</h6>
+                            <div class='repeater'>
+                                <div data-repeater-list="soal_images">
+                                    @if (isset($data->images))
+                                        @foreach ($data->images as $index => $soal_image)
+                                        <div data-repeater-item class="form-group">
+                                            <div class="d-flex">
+                                                <div class="input-group">
+                                                    <div class="custom-file">
+                                                        <input type="hidden" name="{{"soal_images[$index][id]"}}" value="{{$data->images[$index]['id']}}" class="form-control" id="inputid">
+                                                        <input type="file" name="{{"soal_images[$index][image]"}}" class="custom-file-input" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+                                                    </div>
+                                                </div>
+                                                <input data-repeater-delete class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
+                                            </div>
+                                        </div>
+                                        @if ($data->images[$index]['image'])
+                                            <div class="mb-3 mt-n2">
+                                                <a href="{{$data->getSoalImageUrlAttribute($data->images[$index]['image'])}}" target="_blank" rel="noopener noreferrer">Link Image {{$index +1}}</a>
+                                            </div>
+                                        @endif
+                                        @endforeach
+                                    @else
+                                    <div data-repeater-item class="form-group">
+                                        <div class="d-flex">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" name="image" class="custom-file-input" id="inputGroupFile01">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+                                                </div>
+                                            </div>
+                                            <input data-repeater-delete class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
+                                        </div>
+                                    </div>
+                                    @endif
+
+                                </div>
+                                <input data-repeater-create class="btn btn-success btn-sm" type="button" value="Add Image" />
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button class="btn btn btn-primary" type="submit"> Submit</button>
@@ -117,6 +161,30 @@
 
         value_progess.html('50%')
         progess_bar.css('width', '50%');
+    });
+
+    $(document).ready(function () {
+        $('.repeater').repeater({
+            initEmpty: false,
+            defaultValues: {
+                'text-input': 'foo'
+            },
+            show: function () {
+                $(this).slideDown();
+                $('input[name="image_id"]').each(function(){
+                    console.log($(this).val())
+                });
+            },
+            hide: function (deleteElement) {
+                if(confirm('Are you sure you want to delete this image?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            },
+            ready: function (setIndexes) {
+                // console.log(setIndexes)
+            },
+            isFirstItemUndeletable: true
+        })
     });
 
   </script>

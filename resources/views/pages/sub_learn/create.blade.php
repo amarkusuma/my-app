@@ -83,6 +83,29 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"> <span class="value-progress">0</span></div>
                         </div>
+
+                        <div>
+                            <h6 class="mb-2">Upload Images</h6>
+                            <div class='repeater'>
+                                <div data-repeater-list="soal_images">
+                                    <div data-repeater-item class="form-group">
+                                        {{-- <input type="text" class="form-control" name="image_id" /> --}}
+                                        <div class="d-flex">
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                  <input type="file" name="image" class="custom-file-input" id="inputGroupFile01">
+                                                  <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+                                                </div>
+                                            </div>
+                                            <input data-repeater-delete class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <input data-repeater-create class="btn btn-success btn-sm" type="button" value="Add Image" />
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-footer">
                         <button class="btn btn btn-primary" type="submit"> Submit</button>
@@ -107,6 +130,31 @@
 
         value_progess.html('50%')
         progess_bar.css('width', '50%');
+    });
+
+
+    $(document).ready(function () {
+        $('.repeater').repeater({
+            initEmpty: false,
+            defaultValues: {
+                'text-input': 'foo'
+            },
+            show: function () {
+                $(this).slideDown();
+                $('input[name="image_id"]').each(function(){
+                    console.log($(this).val())
+                });
+            },
+            hide: function (deleteElement) {
+                if(confirm('Are you sure you want to delete this image?')) {
+                    $(this).slideUp(deleteElement);
+                }
+            },
+            ready: function (setIndexes) {
+                // console.log(setIndexes)
+            },
+            isFirstItemUndeletable: true
+        })
     });
 
   </script>

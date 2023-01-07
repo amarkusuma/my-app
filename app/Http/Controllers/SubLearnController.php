@@ -51,13 +51,40 @@ class SubLearnController extends Controller
     {
         $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id', 'limit_soal', 'activated']);
 
+        // dd($request->all());
+
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
           'pdf' => 'nullable|max:51200|mimes:pdf,PDF',
           'video' => 'nullable',
         ]);
-        
+
+        if ($request->has('soal_images')) {
+            $soal_images = [];
+            $id = 0;
+
+            for ($i=0; $i < count($request->soal_images); $i++) { 
+                $id +=1;
+
+                if(isset($request->soal_images[$i]['image'])) {
+                    $imagePath = $request->soal_images[$i]['image']->store(SubLearns::SOAL_IMAGE_PATH, 'local');
+                    $filename  = pathinfo($imagePath, PATHINFO_FILENAME);
+                    $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $imageName = $filename . '.' . $extension;
+
+                    if ($imageName) {
+                        $soal_images[$i]['id'] = $id;
+                        $soal_images[$i]['image'] = $imageName;
+                    }
+                }
+            }
+
+            $validate = array_merge($validate, [
+                'images' => $soal_images,
+            ]);
+        }
+    
         if ($request->hasFile('pdf')) {
 
             $pdfPath = $request->file('pdf')->store(SubLearns::FILE_PATH, 'local');
@@ -118,6 +145,51 @@ class SubLearnController extends Controller
 
         $sub_learn = SubLearns::find($id);
 
+        if ($request->has('soal_images')) {
+            $soal_images = [];
+            $id = 0;
+            
+            for ($i=0; $i < count($request->soal_images); $i++) { 
+                $id +=1;
+
+                $old_data= collect($sub_learn->images)->where('id', $request->soal_images[$i]['id'])->first();
+                
+                if (isset($sub_learn->images) && isset($sub_learn->images[$i]['id'])) {
+                    $soal_images[$i]['id'] = $sub_learn->images[$i]['id'];
+                    $soal_images[$i]['image'] = $sub_learn->images[$i]['image'];
+                }
+
+                if(isset($request->soal_images[$i]['image'])) {
+                    
+                    if (isset($sub_learn->images) && count($sub_learn->images) > 0) {
+                    
+                        if ($old_data) {
+                            $image = public_path('/storage/'.SubLearns::SOAL_IMAGE_PATH.$old_data['image']);
+                            if (file_exists($image) && !empty($old_data['image'])) {
+                                unlink($image);
+                            }
+                        }
+                    }
+
+                    $imagePath = $request->soal_images[$i]['image']->store(SubLearns::SOAL_IMAGE_PATH, 'local');
+                    $filename  = pathinfo($imagePath, PATHINFO_FILENAME);
+                    $extension = pathinfo($imagePath, PATHINFO_EXTENSION);
+                    $imageName = $filename . '.' . $extension;
+
+                    if ($imageName) {
+                        $soal_images[$i]['id'] = $id;
+                        $soal_images[$i]['image'] = $imageName;
+                    }
+                }
+            }
+
+
+            // dd($soal_images);
+            $validate = array_merge($validate, [
+                'images' => $soal_images,
+            ]);
+        }
+
         if ($request->hasFile('pdf')) {
             $pdfPath = $request->file('pdf')->store(SubLearns::FILE_PATH, 'local');
 
@@ -175,6 +247,20 @@ class SubLearnController extends Controller
             $file = public_path('/storage/'.SubLearns::VIDEO_PATH.$sub_learn->video);
             if (file_exists($file) && !empty($sub_learn->video)) {
                 unlink($file);
+            }
+
+            if (isset($sub_learn->images) && count($sub_learn->images) > 0) {
+                
+                for ($i=0; $i < count($sub_learn->images); $i++) { 
+                    $old_data= collect($sub_learn->images)->where('id', $sub_learn->images[$i]['id'])->first();
+
+                    if ($old_data) {
+                        $image = public_path('/storage/'.SubLearns::SOAL_IMAGE_PATH.$old_data['image']);
+                        if (file_exists($image) && !empty($old_data['image'])) {
+                            unlink($image);
+                        }
+                    }
+                }
             }
 
             $sub_learn->delete();
