@@ -229,15 +229,16 @@
                 console.log(progess_data)
                 var refreshInterval2 = setInterval(() => {
                     if (progess_data < 100) {
-                        progess_data += 10;
+                        progess_data += 1;
 
                         value_progess.html(progess_data+'%')
                         progess_bar.css('width', progess_data+'%');
                     }else {
+                        clearInterval(refreshInterval2);
                         location.reload();
                         $(location).prop('href', '/sub-learn/'+ data.learn_id)
                     }
-                }, 100);
+                }, 10);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
