@@ -136,7 +136,7 @@ class SubLearnController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $request->only(['learn_id', 'sub_name', 'min_correct', 'pdf', 'link_youtube', 'bank_soal_id', 'limit_soal', 'activated']);
-
+        
         $request->validate([
           'learn_id' => 'required|exists:learns,id',
           'sub_name' => 'required',
@@ -153,7 +153,9 @@ class SubLearnController extends Controller
             for ($i=0; $i < count($request->soal_images); $i++) { 
                 $id +=1;
 
-                $old_data= collect($sub_learn->images)->where('id', $request->soal_images[$i]['id'])->first();
+                $old_data = null;
+                
+                $old_data = isset($request->soal_images[$i]['id']) ? collect($sub_learn->images)->where('id', $request->soal_images[$i]['id'])->first() : null;
                 
                 if (isset($sub_learn->images) && isset($sub_learn->images[$i]['id'])) {
                     $soal_images[$i]['id'] = $sub_learn->images[$i]['id'];
