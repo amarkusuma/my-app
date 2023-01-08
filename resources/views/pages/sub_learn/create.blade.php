@@ -41,7 +41,7 @@
                                 <div class="invalid-feedback">{{ $errors->first('min_correct') }}</div>
                             @endif
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="pdf">PDF</label>
                             <div class="custom-file">
                                 <input class="form-control custom-file-input @error('pdf') is-invalid @enderror" name="pdf" id="pdf" type="file" accept=".PDF,.pdf" placeholder="Input pdf">
@@ -58,7 +58,7 @@
                             @if($errors->has('link_youtube'))
                                 <div class="invalid-feedback">{{ $errors->first('link_youtube') }}</div>
                             @endif
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <label for="video">Video</label>
