@@ -124,7 +124,7 @@
 															<td style="padding-left:60px;padding-right:10px;">
 																<div style="font-family: sans-serif">
 																	<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-																		<p style="margin: 0; font-size: 14px;">Salin url tautan dibawah ini</p>
+																		<p style="margin: 0; font-size: 14px;">Atau anda bisa salin url tautan dibawah ini</p>
 																		<p style="margin: 0; font-size: 14px; mso-line-height-alt: 16.8px;">&nbsp;</p>
 																		<p style="margin: 0; font-size: 14px;"><a href="{{$url}}" target="_blank" style="text-decoration: underline; color: #562ad9;" rel="noopener">{{$url}}</a></p>
 																		<p style="margin: 0; font-size: 14px; mso-line-height-alt: 16.8px;">&nbsp;</p>

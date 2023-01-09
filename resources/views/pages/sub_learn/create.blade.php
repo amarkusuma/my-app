@@ -63,8 +63,8 @@
                         <div class="form-group">
                             <label for="video">Video</label>
                             <div class="custom-file">
-                                <input class="form-control custom-file-input @error('video') is-invalid @enderror" name="video" id="video" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose video</label>
+                                <input class="form-control custom-file-input @error('video') is-invalid @enderror" name="video" id="video" onchange="getVideoChange()" type="file" accept=".mp4,.MP4,.webm,.WEBM,.avi,.AVI" placeholder="Input video">
+                                <label class="custom-file-label" id="inputLabelVideo" for="inputGroupFile01">Choose video</label>
                             </div>
                             @if($errors->has('video'))
                                 <div class="invalid-feedback">{{ $errors->first('video') }}</div>
@@ -94,9 +94,9 @@
                                         {{-- <input type="text" class="form-control" name="image_id" /> --}}
                                         <div class="d-flex">
                                             <div class="input-group">
-                                                <div class="custom-file">
-                                                  <input type="file" name="image" class="custom-file-input" accept=".png,.PNG,.jpg,.jpg,.jpeg,.JPEG" id="inputGroupFile01">
-                                                  <label class="custom-file-label" for="inputGroupFile01">Choose image</label>
+                                                <div class="custom-file file-images">
+                                                  <input type="file" name="image" class="custom-file-input" accept=".png,.PNG,.jpg,.jpg,.jpeg,.JPEG" id="images" onchange="getImagesChange(this)">
+                                                  <label class="custom-file-label" id="inputLabelImages" for="inputGroupFile">Choose image</label>
                                                 </div>
                                             </div>
                                             <input data-repeater-delete class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
@@ -216,6 +216,31 @@
             }
         });
     });
+
+    // onChange file video
+    function getVideoChange() {
+        var fi = document.getElementById('video'); 
+        $('#inputLabelVideo').text('Choose video');
+        for (var i = 0; i < fi.files.length; i++){
+            $('#inputLabelVideo').text(fi.files.item(i).name)
+        }
+    }
+
+    // onChange file image
+    function getImagesChange(e) {
+        const index = e.name.split('[')[1].split(']')[0];
+
+        $('.custom-file.file-images').each(function(idx){
+            $(this).find('label').attr('id','inputLabelImages'+idx);
+
+            if (index == idx) {
+                $('#inputLabelImages'+idx).text('Choose video');
+                for (var i = 0; i < e.files.length; i++){
+                    $('#inputLabelImages'+idx).text(e.files.item(i).name)
+                }
+            }
+        })
+    }
 
   </script>
 @endpush
