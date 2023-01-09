@@ -5,18 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MemberLearn extends Model
+class MemberSubLearn extends Model
 {
     use HasFactory;
 
-    protected $table = 'member_learns';
+    protected $table = 'member_sub_learn';
 
     protected $fillable = [
-      'user_id', 'learn_id', 'active', 'start_date', 'end_date', 'level', 'learn', 'finished',
+      'user_id', 'learn_id', 'sub_learn_id', 'video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'finished',
     ];
 
     protected $with = [
-        'user'
+        'user',
     ];
 
     public function user()
@@ -28,4 +28,10 @@ class MemberLearn extends Model
     {
         $this->belongsTo(Learns::class, 'learn_id');
     }
+
+    public function sub_learn()
+    {
+        $this->belongsTo(SubLearns::class, 'sub_learn_id');
+    }
+
 }

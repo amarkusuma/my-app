@@ -76,10 +76,11 @@ class SubLearnController extends Controller
                     if ($imageName) {
                         $soal_images[$i]['id'] = $id;
                         $soal_images[$i]['image'] = $imageName;
+                        $soal_images[$i]['sequence_number'] = $request->soal_images[$i]['sequence_number'];
                     }
                 }
             }
-
+            
             $validate = array_merge($validate, [
                 'images' => $soal_images,
             ]);
@@ -160,6 +161,7 @@ class SubLearnController extends Controller
                 if (isset($sub_learn->images) && isset($sub_learn->images[$i]['id'])) {
                     $soal_images[$i]['id'] = $sub_learn->images[$i]['id'];
                     $soal_images[$i]['image'] = $sub_learn->images[$i]['image'];
+                    $soal_images[$i]['sequence_number'] = $request->soal_images[$i]['sequence_number'];
                 }
 
                 if(isset($request->soal_images[$i]['image'])) {
@@ -182,6 +184,7 @@ class SubLearnController extends Controller
                     if ($imageName) {
                         $soal_images[$i]['id'] = $id;
                         $soal_images[$i]['image'] = $imageName;
+                        $soal_images[$i]['sequence_number'] = $request->soal_images[$i]['sequence_number'];
                     }
                 }
             }

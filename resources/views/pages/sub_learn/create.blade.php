@@ -88,10 +88,14 @@
 
                         <div>
                             <h6 class="mb-2">Upload Images</h6>
+                            <hr>
                             <div class='repeater'>
                                 <div data-repeater-list="soal_images">
                                     <div data-repeater-item class="form-group">
-                                        {{-- <input type="text" class="form-control" name="image_id" /> --}}
+                                        <div class="form-group">
+                                            <label for="sequence_number">Sequence Number</label>
+                                            <input class="form-control @error('sequence_number') is-invalid @enderror" name="sequence_number" id="sequence_number" type="number" placeholder="Input sequence number">
+                                        </div>
                                         <div class="d-flex">
                                             <div class="input-group">
                                                 <div class="custom-file file-images">

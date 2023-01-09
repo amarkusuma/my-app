@@ -6,6 +6,7 @@ use App\Models\News;
 use App\Models\NewsCategories;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -90,8 +91,9 @@ class NewsController extends Controller
         ]);
 
         $validate = array_merge($validate, [
-           'date_text' => Carbon::now()->format('d F Y'),
+           'date_text' => Carbon::now()->format('d M Y H:i'),
            'slug' => Str::slug($request->title),
+           'post_by' => Auth::user()->name,
         ]);
 
         if ($request->hasFile('image')) {

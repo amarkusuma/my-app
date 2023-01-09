@@ -98,12 +98,17 @@
                         </div>
 
                         <div>
-                            <h6 class="mb-3">Upload Images</h6>
+                            <h5 class="mb-3">Upload Images</h5>
+                            <hr>
                             <div class='repeater'>
                                 <div data-repeater-list="soal_images">
-                                    @if (isset($data->images))
+                                    @if (isset($data->images) && count($data->images) > 0)
                                         @foreach ($data->images as $index => $soal_image)
                                         <div data-repeater-item class="form-group">
+                                            <div class="form-group">
+                                                <label for="sequence_number">Sequence Number</label>
+                                                <input class="form-control @error('sequence_number') is-invalid @enderror" name="sequence_number" id="sequence_number" value="{{isset($data->images[$index]['sequence_number']) ? $data->images[$index]['sequence_number'] : null}}" type="number" placeholder="Input sequence number">
+                                            </div>
                                             <div class="d-flex">
                                                 <div class="input-group">
                                                     <div class="custom-file file-images">
@@ -116,13 +121,17 @@
                                             </div>
                                         </div>
                                         @if ($data->images[$index]['image'])
-                                            <div class="mb-3 mt-n2">
+                                            <div class="mb-3 mt-n2" id="link-image-{{$index}}">
                                                 <a href="{{$data->getSoalImageUrlAttribute($data->images[$index]['image'])}}" target="_blank" rel="noopener noreferrer">Link Image {{$index +1}}</a>
                                             </div>
                                         @endif
                                         @endforeach
                                     @else
                                     <div data-repeater-item class="form-group">
+                                        <div class="form-group">
+                                            <label for="sequence_number">Sequence Number</label>
+                                            <input class="form-control @error('sequence_number') is-invalid @enderror" name="sequence_number" id="sequence_number" type="number" placeholder="Input sequence number">
+                                        </div>
                                         <div class="d-flex">
                                             <div class="input-group">
                                                 <div class="custom-file">
@@ -130,7 +139,7 @@
                                                     <label class="custom-file-label" id="inputLabelImages" for="inputGroupFile">Choose image</label>
                                                 </div>
                                             </div>
-                                            <input data-repeater-delete class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
+                                            <input data-repeater-delete id="btn-delete-0" class="btn btn-outline-danger btn-sm ml-lg-2 ml-1" type="button" value="Delete" />
                                         </div>
                                     </div>
                                     @endif
@@ -162,6 +171,7 @@
 
     var value_progess = $('.value-progress');
     var progess_bar = $('.progress-bar');
+    var group_element_delete = [];  
 
     // $('button[type="submit"]').on('click', function(e) {
     //     $('.progress').show();
@@ -178,13 +188,12 @@
             },
             show: function () {
                 $(this).slideDown();
-                $('input[name="image_id"]').each(function(){
-                    console.log($(this).val())
-                });
             },
             hide: function (deleteElement) {
+                // console.log($(this))
                 if(confirm('Are you sure you want to delete this image?')) {
                     $(this).slideUp(deleteElement);
+                    $(this).next('div').remove();
                 }
             },
             ready: function (setIndexes) {

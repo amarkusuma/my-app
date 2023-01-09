@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\QuestionController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 
 /*
@@ -32,8 +34,20 @@ Route::name('api.')->group(function() {
     Route::get('get-news', [NewsController::class, 'newsList']);
     Route::get('get-slide-news', [NewsController::class, 'slideNewsList']);
     
-    // Route::group(['middleware' => ['auth:sanctum']], function () {
-    //     Route::get('get-news', [NewsController::class, 'newsList']);
-    // });
+    Route::post('update-user/{user_id}', [UserController::class, 'updateDataUserById']);
+
+    Route::get('get-member-learn', [MemberController::class, 'getMemberLearn']);
+    Route::get('get-member-sub-learn', [MemberController::class, 'getMemberSubLearn']);
+    Route::get('get-member-learn/{user_id}', [MemberController::class, 'getMemberLearnByUser']);
+    Route::get('get-member-sub-learn/{user_id}', [MemberController::class, 'getMemberSubLearnByUser']);
+
+    Route::post('update-member-learn/{user_id}/{learn_id}', [MemberController::class, 'updateMemberLearn']);
+
+    Route::post('update-member-sub-learn/{user_id}/{sub_learn_id}', [MemberController::class, 'updateMemberSubLearn']);
+    
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        // Route::get('get-news', [NewsController::class, 'newsList']);
+        Route::post('update-user', [UserController::class, 'updateDataUser']);
+    });
 
 });

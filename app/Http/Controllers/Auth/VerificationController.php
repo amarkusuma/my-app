@@ -37,7 +37,6 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
@@ -66,7 +65,7 @@ class VerificationController extends Controller
 
                 return view('pages.email.verify-email', [
                     'title' => 'Verification Successfull',
-                    'message' => 'Selamat Akun anda sudah aktif, silahkan login melalui aplikasi autismart mobile',
+                    'message' => 'Selamat Akun anda sudah aktif, silahkan login melalui aplikasi autismart',
                     'status' => true,
                 ]);
 
