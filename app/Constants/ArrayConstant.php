@@ -69,4 +69,19 @@ class ArrayConstant
             'label' => 'Advanced',
         ],
     );
+
+    const ROLES = array(
+        [
+            'value' => 'guest',
+            'label' => 'Guest'
+        ],
+        [
+            'value' => 'user',
+            'label' => 'User'
+        ],
+        [
+            'value' => 'admin',
+            'label' => 'Admin'
+        ],
+    );
 }

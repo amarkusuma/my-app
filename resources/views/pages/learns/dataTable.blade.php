@@ -52,27 +52,27 @@
     <script type="text/javascript">
         $(function () {
 
-          var table = $('.dataTableBuilder').DataTable({
-              processing: true,
-              serverSide: true,
-              ajax: "{{ route('learns.list') }}",
-              columns: [
-                  {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                  {data: 'name', name: 'name'},
-                  {data: 'level', name: 'level'},
-                  {data: 'price', name: 'price'},
-                  {data: 'discount', name: 'discount'},
-                  {
-                      data: 'action',
-                      name: 'action',
-                      orderable: true,
-                      searchable: true
-                  },
-              ]
-          });
+            var table = $('.dataTableBuilder').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('learns.list') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'name', name: 'name'},
+                    {data: 'level', name: 'level'},
+                    {data: 'price', name: 'price'},
+                    {data: 'discount', name: 'discount'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: true
+                    },
+                ]
+            });
 
         });
-      </script>
+    </script>
 
       <script>
         //   $('.delete', '#')
