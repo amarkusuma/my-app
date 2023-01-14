@@ -66,7 +66,7 @@
 																<div align="center">
 																	<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																		<tr>
-																			<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 14px solid #3A445D;"><span>&#8202;</span></td>
+																			<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 14px solid #3392a4;"><span>&#8202;</span></td>
 																		</tr>
 																	</table>
 																</div>
@@ -75,8 +75,11 @@
 													</table>
 													<table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
-															<td style="padding-left:60px;padding-top:40px;width:100%;padding-right:0px;">
-																<div style="line-height:10px"><img src="{{ asset('images/pidi-logo2.jpeg') }}" style="display: block; height: auto; border: 0; width: 171px; max-width: 100%;" width="171"></div>
+															<td style="padding-left:60px;padding-top:20px;width:100%;padding-right:0px;">
+																<div style="line-height:10px">
+                                                                    {{-- <img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/728025_711064/pidi-logos.png" style="display: block; height: auto; border: 0; width: 171px; max-width: 100%;" width="171"> --}}
+                                                                    <img src="{{ url("/assets/img/logo/logo2.jpeg") }}" style="display: block; height: auto; border: 0; width: 80px; max-width: 100%;" width="171">
+                                                                </div>
 															</td>
 														</tr>
 													</table>
@@ -85,7 +88,7 @@
 															<td style="padding-bottom:10px;padding-left:60px;padding-right:10px;padding-top:40px;">
 																<div style="font-family: sans-serif">
 																	<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-																		<p style="margin: 0; font-size: 14px;"><span style="font-size:18px;"><strong>Atur Ulang Kata Sandi</strong></span></p>
+																		<p style="margin: 0; font-size: 14px;"><strong><span style="font-size:18px;">Kode OTP Login</span></strong></p>
 																	</div>
 																</div>
 															</td>
@@ -96,27 +99,18 @@
 															<td style="padding-bottom:10px;padding-left:60px;padding-right:10px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-																		<p style="margin: 0; font-size: 14px;">Hi {{$name}},<br>Untuk mengatur ulang kata sandi, silahkan tekan tombol di bawah ini</p>
+																		<p style="margin: 0; font-size: 14px;">Hi {{$name}},<br>Untuk melakukan login, silahkan masukkan kode otp di bawah ini</p>
 																	</div>
 																</div>
 															</td>
 														</tr>
 													</table>
-													<table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
-														<tr>
-															<td style="padding-left:40px;padding-top:5px;width:100%;padding-right:0px;">
-																<div style="line-height:10px"><a href="{{$url}}" target="_blank" style="outline:none" tabindex="-1"><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/728025_711064/pidi-reset-password-button.png" style="display: block; height: auto; border: 0; width: 290px; max-width: 100%;" width="290"></a></div>
-															</td>
-														</tr>
-													</table>
 													<table class="text_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
-															<td style="padding-right:10px;padding-left:60px;">
+															<td style="padding-left:60px;padding-right:10px;">
 																<div style="font-family: sans-serif">
 																	<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-																		<p style="margin: 0; font-size: 14px;">Atau anda bisa salin url tautan dibawah ini</p>
-																		<p style="margin: 0; font-size: 14px; mso-line-height-alt: 16.8px;">&nbsp;</p>
-																		<p style="margin: 0; font-size: 14px;"><a href="{{$url}}" target="_blank" style="text-decoration: underline; color: #562ad9;" rel="noopener">{{$url}}</a></p>
+																		<p style="margin: 0; font-size: 16px;"><strong><span>{{$kode_otp}}</span></strong></p>
 																		<p style="margin: 0; font-size: 14px; mso-line-height-alt: 16.8px;">&nbsp;</p>
 																	</div>
 																</div>
@@ -128,7 +122,7 @@
 															<td style="padding-bottom:60px;padding-left:60px;padding-right:10px;padding-top:10px;">
 																<div style="font-family: sans-serif">
 																	<div style="font-size: 14px; mso-line-height-alt: 16.8px; color: #393d47; line-height: 1.2; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;">
-																		<p style="margin: 0;">Jika Anda tidak meminta pengaturan ulang kata sandi, silahkan abaikan pesan ini.</p>
+																		<p style="margin: 0;">Jika anda menemui masalah verifikasi akun, silakan menghubungi kontak kami 087888833123</p>
 																		<p style="margin: 0; mso-line-height-alt: 16.8px;">&nbsp;</p>
 																		<p style="margin: 0; mso-line-height-alt: 16.8px;">&nbsp;</p>
 																		<p style="margin: 0;">Terima kasih,</p>

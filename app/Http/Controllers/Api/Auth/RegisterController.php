@@ -9,6 +9,7 @@ use App\Models\Learns;
 use App\Models\Member;
 use App\Models\MemberLearn;
 use App\Models\MemberSubLearn;
+use App\Models\SubLearns;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -30,7 +31,7 @@ class RegisterController extends Controller
             'remember_token' => Str::random(32),
             'menuroles' => 'user',
         ]);
-        $user->assignRole('user');
+        $user->assignRole('guest');
         return $user;
     }
 
@@ -59,8 +60,6 @@ class RegisterController extends Controller
             $user = $this->create($request->all());
             
             if ($user) {
-                $token = $user->createToken('auth_token')->plainTextToken;
-
                 collect($learn)->each(function($data) use($user){
                     MemberLearn::create([
                         'user_id' => $user->id,
@@ -71,19 +70,27 @@ class RegisterController extends Controller
                     ]);
                 });
 
+                // $token = $user->createToken('auth_token')->plainTextToken;
                 // $member_sub_learn = MemberLearn::where(['user_id' => $user->id], ['learn_id' => $basic->id])->first();
 
-                MemberSubLearn::create([
-                    'user_id' => $user->id,
-                    'learn_id' => $basic->id,
-                ]); 
+                $sub_learn = SubLearns::whereHas( 'learn', function($query){
+                    $query->where('level', ArrayConstant::LEVEL[0]['value']);
+                })->get();
+
+                collect($sub_learn)->each(function($data) use($user, $basic){
+                    MemberSubLearn::create([
+                        'user_id' => $user->id,
+                        'learn_id' => $basic->id,
+                        'sub_learn_id' => $data->id,
+                    ]); 
+                });
 
                 $user->sendEmailVerificationNotification();
 
                 return $this->success('Register successfull', [
                     'user' => $user,
-                    'access_token' => $token,
-                    'token_type' => 'Bearer'
+                    // 'access_token' => $token,
+                    // 'token_type' => 'Bearer'
                 ]);
             }
         } catch (\Throwable $th) {

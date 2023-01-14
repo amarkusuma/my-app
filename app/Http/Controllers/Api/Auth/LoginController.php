@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class LoginController extends Controller
 {
 
@@ -37,18 +37,66 @@ class LoginController extends Controller
 
         if ($user->verification) {
             try {
-                $token = $user->createToken('auth_token')->plainTextToken;
-                return $this->success('login successfull',  [
-                    'user' => $user,
-                    'access_token' => $token,
-                    'token_type' => 'Bearer'
-                ]);
+                // V1
+                // $token = $user->createToken('auth_token')->plainTextToken;
+                // return $this->success('login successfull',  [
+                //     'user' => $user,
+                //     'access_token' => $token,
+                //     'token_type' => 'Bearer'
+                // ]);
+
+                $random_number = random_int(100000, 999999);
+
+                $user->otp_code = $random_number;
+                $user->otp_code_updated_at = Carbon::now()->format('Y-m-d H:i:s');
+                $user->save();
+
+                $user->sendOTPLoginNotification();
+
+                return $this->success('login successfull, We send otp code to your email');
+
             } catch (\Throwable $th) {
                 return $this->failure($th->getMessage(), []);
             }
         }
 
         return $this->failure('User not verification', []);
+    }
+
+    public function verificationOTPLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'otp_code' => 'required|exists:users,otp_code',
+        ]);
+
+        $validate = $request->only(['email', 'otp_code']);
+
+        $user = User::where($validate)->first();
+
+        if ($user) {
+            try {
+                $now = Carbon::parse(Carbon::now()->format('Y-m-d H:i:s'));
+                $minutes = $now->diffInMinutes(Carbon::parse($user->otp_code_updated_at));
+
+                if ($minutes > 60) {
+                    return $this->failure('Otp code expired');
+                }
+
+                $token = $user->createToken('auth_token')->plainTextToken;
+                
+                return $this->success('Verification otp code successfully', [
+                    'user' => $user,
+                    'access_token' => $token,
+                    'token_type' => 'Bearer'
+                ]);
+
+            } catch (\Throwable $th) {
+                return $this->failure($th->getMessage());
+            }
+        }
+
+        return $this->notFound('data user not found');
     }
 
     public function verification(Request $request)
@@ -85,4 +133,5 @@ class LoginController extends Controller
 
         return $this->failure('Verification failed', []);
     }
+
 }

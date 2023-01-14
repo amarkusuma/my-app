@@ -27,6 +27,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
+Route::post('check-otp-code-login', [LoginController::class, 'verificationOTPLogin']);
+
 Route::name('api.')->group(function() {
     Route::get('user/verification', [LoginController::class, 'verification'])->name('verification');
     
@@ -48,6 +50,7 @@ Route::name('api.')->group(function() {
     Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('get-news', [NewsController::class, 'newsList']);
         Route::post('update-user', [UserController::class, 'updateDataUser']);
+        Route::post('change-password', [UserController::class, 'changePassword']);
     });
 
 });

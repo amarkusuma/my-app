@@ -4,8 +4,9 @@
 
     <style>
         .right-bg {
-            background-image: linear-gradient(rgba(238, 234, 234, 0.5), rgba(250, 250, 250, 0.5)), url("/assets/img/logo/logo.png");
-            background-size: cover;
+          background-image: linear-gradient(rgba(238, 234, 234, 0.5), rgba(250, 250, 250, 0.5)), url("/assets/img/logo/logo2.jpeg");
+          /* background-repeat: no-repeat; */
+          background-size: 400px 300px;
         }
     </style>
 

@@ -78,7 +78,7 @@
 															<td style="padding-left:60px;padding-top:20px;width:100%;padding-right:0px;">
 																<div style="line-height:10px">
                                                                     {{-- <img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/728025_711064/pidi-logos.png" style="display: block; height: auto; border: 0; width: 171px; max-width: 100%;" width="171"> --}}
-                                                                    <img src="{{ url("/assets/img/logo/logo.png") }}" style="display: block; height: auto; border: 0; width: 80px; max-width: 100%;" width="171">
+                                                                    <img src="{{ url("/assets/img/logo/logo2.jpeg") }}" style="display: block; height: auto; border: 0; width: 80px; max-width: 100%;" width="171">
                                                                 </div>
 															</td>
 														</tr>

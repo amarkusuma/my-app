@@ -76,7 +76,7 @@
 													<table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td style="padding-left:60px;padding-top:40px;width:100%;padding-right:0px;">
-																<div style="line-height:10px"><img src="{{ asset('images/pidi-logo.png') }}" style="display: block; height: auto; border: 0; width: 171px; max-width: 100%;" width="171"></div>
+																<div style="line-height:10px"><img src="{{ asset('images/pidi-logo2.jpeg') }}" style="display: block; height: auto; border: 0; width: 171px; max-width: 100%;" width="171"></div>
 															</td>
 														</tr>
 													</table>

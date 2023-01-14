@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
+use App\Notifications\SendOTPLoginNotification;
 use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'remember_token', 'phone_number', 'age', 'gender', 'city', 'level', 'otp_code'
+        'name', 'email', 'password', 'remember_token', 'phone_number', 'age', 'gender', 'city', 'level', 'otp_code', 'otp_code_updated_at',
     ];
 
     /**
@@ -73,8 +74,13 @@ class User extends Authenticatable
         $this->notify(new VerifyEmailNotification());
     }
 
-    public function sendResetPasswordNotification()
+    public function sendOTPLoginNotification()
     {
-        $this->notify(new ResetPasswordNotification('ssjshsssg'));
+        $this->notify(new SendOTPLoginNotification());
+    }
+
+    public function sendResetPasswordNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
