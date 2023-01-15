@@ -80,4 +80,30 @@ class MemberController extends Controller
 
         return $this->notFound();
     }
+
+    public function updateStatusMemberSubLearn(Request $request, $user_id, $learn_id)
+    {
+        $request->validate([
+            'active' => 'nullable',
+            'finished' => 'nullable',
+        ]);
+
+        $validate = $request->only(['active', 'finished']);
+
+        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'learn_id' => $learn_id]);
+
+        if (count($member_sub_learn->get()) > 0) {
+            try {
+                $member_sub_learn->update($validate);
+
+                return $this->success('Update member sub learn successfully', [
+                    'test' => $member_sub_learn->get(),
+                ]);
+            } catch (\Throwable $th) {
+               return $this->failure($th->getMessage());
+            }
+        }
+
+        return $this->notFound('Member sub learn not found');
+    }
 }

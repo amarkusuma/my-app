@@ -61,13 +61,25 @@ class RegisterController extends Controller
             
             if ($user) {
                 collect($learn)->each(function($data) use($user){
-                    MemberLearn::create([
-                        'user_id' => $user->id,
-                        'learn_id' => $data->id,
-                        'start_date' => null,
-                        'learn' => $data->name,
-                        'level' => $data->level,
-                    ]);
+                    if ($data->level == ArrayConstant::LEVEL[0]['value']) {
+                        MemberLearn::create([
+                            'user_id' => $user->id,
+                            'learn_id' => $data->id,
+                            'start_date' => null,
+                            'learn' => $data->name,
+                            'level' => $data->level,
+                            'generated' => true,
+                        ]);
+                    } else {
+                        MemberLearn::create([
+                            'user_id' => $user->id,
+                            'learn_id' => $data->id,
+                            'start_date' => null,
+                            'learn' => $data->name,
+                            'level' => $data->level,
+                        ]);
+                    }
+                    
                 });
 
                 // $token = $user->createToken('auth_token')->plainTextToken;

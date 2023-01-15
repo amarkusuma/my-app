@@ -12,7 +12,7 @@ class MemberSubLearn extends Model
     protected $table = 'member_sub_learn';
 
     protected $fillable = [
-      'user_id', 'learn_id', 'sub_learn_id', 'video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'finished',
+      'user_id', 'learn_id', 'sub_learn_id', 'video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'finished', 'active', 'sequence_number'
     ];
 
     protected $with = [

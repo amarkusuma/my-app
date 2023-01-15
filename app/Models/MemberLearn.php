@@ -12,7 +12,7 @@ class MemberLearn extends Model
     protected $table = 'member_learns';
 
     protected $fillable = [
-      'user_id', 'learn_id', 'active', 'start_date', 'end_date', 'level', 'learn', 'finished',
+      'user_id', 'learn_id', 'active', 'start_date', 'end_date', 'level', 'learn', 'finished', 'generated'
     ];
 
     protected $with = [
