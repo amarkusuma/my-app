@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankSoal;
+use App\Models\Learns;
 use App\Models\MemberLearn;
 use App\Models\MemberSubLearn;
+use App\Models\SubLearns;
+use App\Models\SubSoal;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -29,10 +33,32 @@ class MemberController extends Controller
         return $this->success('get member learn successfully', $member_learn);
     }
 
-    public function getMemberSubLearnByUser($user_id){
-        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id])->get();
+    public function getMemberSubLearnByUser($user_id, $learn_id){
+        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'learn_id' => $learn_id])->get();
 
-        return $this->success('get member sub learn successfully', $member_sub_learn);
+        if (count($member_sub_learn) > 0) {
+
+            try {
+                collect($member_sub_learn)->map(function($data){
+                    $learn = Learns::find($data->learn_id);
+                    $sub_learn = SubLearns::find($data->sub_learn_id);
+                    $bank_soal = BankSoal::find($sub_learn->bank_soal_id);
+
+                    $limit_soal = $sub_learn->limit_soal ?? 10;
+                    $sub_soal = SubSoal::where('bank_soal_id', $bank_soal->id)->inRandomOrder()->limit($limit_soal)->get();
+
+                    $data['learns'] = $learn ?? null;
+                    $data['sub_learns'] = $sub_learn ?? null;
+                    $data['soal'] = $sub_soal ?? null;
+                });
+
+                return $this->success('get member sub learn successfully', $member_sub_learn);
+            } catch (\Throwable $th) {
+                return $this->failure($th->getMessage());
+            }
+        }
+
+        return $this->notFound('get member sub learn not found');
     }
 
     public function updateMemberLearn(Request $request, $user_id, $learn_id)

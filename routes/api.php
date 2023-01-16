@@ -41,7 +41,7 @@ Route::name('api.')->group(function() {
     Route::get('get-member-learn', [MemberController::class, 'getMemberLearn']);
     Route::get('get-member-sub-learn', [MemberController::class, 'getMemberSubLearn']);
     Route::get('get-member-learn/{user_id}', [MemberController::class, 'getMemberLearnByUser']);
-    Route::get('get-member-sub-learn/{user_id}', [MemberController::class, 'getMemberSubLearnByUser']);
+    Route::get('get-member-sub-learn/{user_id}/{learn_id}', [MemberController::class, 'getMemberSubLearnByUser']);
 
     Route::post('update-member-learn/{user_id}/{learn_id}', [MemberController::class, 'updateMemberLearn']);
 
