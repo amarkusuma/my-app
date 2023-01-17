@@ -88,7 +88,7 @@ class MemberController extends Controller
     {
         $validate = $request->only(['video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'finished']);
 
-        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id], ['sub_learn_id' => $sub_learn_id])->first();
+        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'sub_learn_id' => $sub_learn_id])->first();
 
         try {
             
@@ -107,7 +107,7 @@ class MemberController extends Controller
         return $this->notFound();
     }
 
-    public function updateStatusMemberSubLearn(Request $request, $user_id, $learn_id)
+    public function updateStatusMemberSubLearn(Request $request, $user_id, $sub_learn_id)
     {
         $request->validate([
             'active' => 'nullable',
@@ -116,7 +116,7 @@ class MemberController extends Controller
 
         $validate = $request->only(['active', 'finished']);
 
-        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'learn_id' => $learn_id]);
+        $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'sub_learn_id' => $sub_learn_id]);
 
         if (count($member_sub_learn->get()) > 0) {
             try {
@@ -131,5 +131,29 @@ class MemberController extends Controller
         }
 
         return $this->notFound('Member sub learn not found');
+    }
+
+    public function generateMemberSubLearn(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:member_learns,user_id',
+            'learn_id' => 'required|exists:learns,id',
+        ]);
+
+        $sub_learn = SubLearns::where('learn_id', $request->learn_id)->get();
+
+        try {
+            collect($sub_learn)->each(function($data) use($request){
+                MemberSubLearn::create([
+                    'user_id' => $request->user_id,
+                    'learn_id' => $request->learn_id,
+                    'sub_learn_id' => $data->id,
+                ]); 
+            });
+
+            return $this->success('Generate member sub learn successfully');
+        } catch (\Throwable $th) {
+            return $this->failure($th->getMessage());
+        }
     }
 }

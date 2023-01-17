@@ -47,7 +47,9 @@ Route::name('api.')->group(function() {
 
     Route::post('update-member-sub-learn/{user_id}/{sub_learn_id}', [MemberController::class, 'updateMemberSubLearn']);
 
-    Route::post('sublearn-active/{user_id}/{learn_id}', [MemberController::class, 'updateStatusMemberSubLearn']);
+    Route::post('sublearn-active/{user_id}/{sub_learn_id}', [MemberController::class, 'updateStatusMemberSubLearn']);
+
+    Route::post('generate-member-sub-learn', [MemberController::class, 'generateMemberSubLearn']);
     
     Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('get-news', [NewsController::class, 'newsList']);
