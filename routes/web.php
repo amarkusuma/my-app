@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BankSoalController;
 use App\Http\Controllers\LearnsController;
@@ -90,5 +91,7 @@ Route::name('backend.')->group(function() {
     Route::get('user/verification', [VerificationController::class, 'verification'])->name('verification');
     Route::get('change-password', [UsersController::class, 'changePasswordForm'])->name('change_password');
     Route::post('change-password', [UsersController::class, 'changePassword'])->name('update.change_password');
+    Route::get('request-reset-password', [ResetPasswordController::class, 'formResetPassword'])->name('request-reset-password');
+    Route::post('reset-password', [ResetPasswordController::class, 'resetPassword'])->name('reset_password.update');
         
 });

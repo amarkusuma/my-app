@@ -50,7 +50,10 @@ Route::name('api.')->group(function() {
     Route::post('sublearn-active/{user_id}/{sub_learn_id}', [MemberController::class, 'updateStatusMemberSubLearn']);
 
     Route::post('generate-member-sub-learn', [MemberController::class, 'generateMemberSubLearn']);
-    
+
+    Route::post('detail-user', [UserController::class, 'detailUser']);
+    Route::post('request-reset-password', [UserController::class, 'requestResetPassword'])->name('request-reset-password');
+
     Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('get-news', [NewsController::class, 'newsList']);
         Route::post('update-user', [UserController::class, 'updateDataUser']);

@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -74,5 +75,47 @@ class UserController extends Controller
             return $this->error($th->getMessage());
         }
         
+    }
+
+    public function detailUser(Request $request)
+    {
+        $validate = $request->validate([
+          'user_id' => 'required|exists:users,id'
+        ]);
+
+        $user = User::find($request->user_id);
+
+        try {
+            if ($user) {
+                return $this->success('Get user successful', $user);
+            }
+
+            return $this->notFound('User not found');
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage());
+        }
+
+    }
+
+    public function requestResetPassword(Request $request)
+    {
+        $validate = $request->validate([
+            'email' => 'required|exists:users,email',
+        ]);
+
+        $user = User::where('email',$request->email)->first();
+        $user->remember_token = Str::random(32);
+        $user->save();
+
+        try {
+            if ($user) {
+                $user->sendResetPasswordNotification();
+                return $this->success('Request reset password successful', $user);
+            }
+
+            return $this->notFound('User not found');
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage());
+        }
     }
 }

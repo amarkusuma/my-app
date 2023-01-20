@@ -83,7 +83,7 @@ class VerificationController extends Controller
         // }
 
         return view('pages.email.verify-email', [
-            'title' => 'Verification failed',
+            'title' => 'Verification Failed',
             'message' => 'Verifikasi gagal, silahkan verifikasi ulang, atau hubungi admin autismart mobile',
             'status' => false,
         ]);

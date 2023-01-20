@@ -10,12 +10,12 @@ class ResetPasswordNotification extends Notification
 {
     use Queueable;
 
-    private $token;
+    // private $token;
 
-    public function __construct($token)
-    {
-        $this->token = $token;
-    }
+    // public function __construct($token)
+    // {
+    //     $this->token = $token;
+    // }
 
 
     public function via()
@@ -29,7 +29,7 @@ class ResetPasswordNotification extends Notification
         //phpcs:disable
         return (new Mail)
             ->subject(__('Reset Password'))
-            ->markdown('frontend::email.reset-password', [ 'url' => $this->resetUrl($notifiable), 'name' => $notifiable->name])
+            ->markdown('email.reset-password', [ 'url' => $this->resetUrl($notifiable), 'name' => $notifiable->name])
             ->to($notifiable->getEmailForVerification(), $notifiable->getNameForVerification());
         //phpcs:enable
     }
@@ -37,6 +37,6 @@ class ResetPasswordNotification extends Notification
 
     protected function resetUrl($notifiable)
     {
-        return route('api.verification', ['token' => $this->token, 'email' => $notifiable->getEmailForVerification()]);
+        return route('backend.request-reset-password', ['token' => $notifiable->remember_token, 'email' => $notifiable->getEmailForVerification()]);
     }
 }
