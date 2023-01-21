@@ -15,7 +15,7 @@
                     {{-- {{$dataTable->table()}} --}}
 
                     <div class="mb-4">
-                        <a class="btn btn btn-primary" href="{{ route('news.create') }}">Add category</a>
+                        <a class="btn btn btn-primary" href="{{ route('news.create') }}">Add News</a>
                     </div>
                     <table class="table table-responsive-sm table-striped dataTableBuilder">
                         <thead>
