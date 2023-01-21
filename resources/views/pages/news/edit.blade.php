@@ -59,7 +59,7 @@
 
                         <div class="form-group">
                             <label for="textarea-input">Textarea</label>
-                            <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="textarea-input" name="textarea-input" rows="5" placeholder="Description..">{{$data->description}}</textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="summernote" name="description" id="textarea-input" name="textarea-input" rows="5" placeholder="Description..">{{$data->description}}</textarea>
                             @if($errors->has('description'))
                                 <div class="invalid-feedback">{{ $errors->first('description') }}</div>
                             @endif
@@ -75,3 +75,33 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+ <script>
+    $(document).ready(function() {
+        $('#summernote').summernote({
+            height: 200,
+            toolbar: [
+                // ['style', ['fontname', 'bold', 'italic', 'underline', 'clear']],
+                // ['font', ['strikethrough', 'superscript', 'subscript']],
+                // ['fontsize', ['fontsize', 'undo', 'redo']],
+                // ['color', ['color']],
+                // ['para', ['ul', 'ol', 'paragraph']],
+                // ['height', ['height']],
+                // ['insert', ['picture', 'video', 'table']],
+                ['search', ['findnreplace', 'changecolor']],
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'strikethrough']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'hr']],
+                ['view', ['fullscreen', 'codeview']],
+                ['help', ['help']]
+            ],
+        });
+    });
+ </script>
+@endpush
