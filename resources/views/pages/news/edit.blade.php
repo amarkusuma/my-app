@@ -81,6 +81,7 @@
     $(document).ready(function() {
         $('#summernote').summernote({
             height: 200,
+            lineHeights: ['0.2','0.5', '1.0', '1.2', '1.4', '1.5', '1.6', '1.8', '2.0', '2.5', '3.0'],
             toolbar: [
                 // ['style', ['fontname', 'bold', 'italic', 'underline', 'clear']],
                 // ['font', ['strikethrough', 'superscript', 'subscript']],
