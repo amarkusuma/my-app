@@ -53,7 +53,7 @@ Route::name('api.')->group(function() {
 
     Route::post('detail-user', [UserController::class, 'detailUser']);
     Route::post('request-reset-password', [UserController::class, 'requestResetPassword'])->name('request-reset-password');
-
+    
     Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('get-news', [NewsController::class, 'newsList']);
         Route::post('update-user', [UserController::class, 'updateDataUser']);

@@ -10,7 +10,7 @@ class NewsController extends Controller
 {
     public function newsList()
     {
-        $news = News::with('news_categories')->get();
+        $news = News::with('news_categories')->limit(200)->orderBy('created_at', 'desc')->get();
 
         return $this->success('get news data successfull', $news);
     }

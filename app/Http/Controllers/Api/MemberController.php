@@ -29,7 +29,16 @@ class MemberController extends Controller
 
     public function getMemberLearnByUser($user_id){
         $member_learn = MemberLearn::where(['user_id' => $user_id])->get();
-
+        
+        try {
+                collect($member_learn)->map(function($data){
+                    $learn = Learns::find($data->learn_id);
+                    $data['learns'] = $learn ?? null;
+                });
+            } catch (\Throwable $th) {
+                return $this->failure($th->getMessage());
+            }
+                
         return $this->success('get member learn successfully', $member_learn);
     }
 
@@ -63,10 +72,10 @@ class MemberController extends Controller
 
     public function updateMemberLearn(Request $request, $user_id, $learn_id)
     {
-        $validate = $request->only(['level', 'learn', 'active', 'finished', 'start_date', 'end_date']);
+        $validate = $request->only(['level', 'learn', 'active', 'finished', 'generated', 'start_date', 'end_date']);
 
-        $member_learn = MemberLearn::where(['user_id' => $user_id], ['learn_id' => $learn_id])->first();
-
+        $member_learn = MemberLearn::where(['user_id' => $user_id, 'learn_id' => $learn_id])->first();
+        
         try {
             
             if ($member_learn) {
@@ -86,7 +95,7 @@ class MemberController extends Controller
 
     public function updateMemberSubLearn(Request $request, $user_id, $sub_learn_id)
     {
-        $validate = $request->only(['video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'finished']);
+        $validate = $request->only(['video_status', 'materi_status', 'exam_status', 'min_correct', 'corrected', 'active', 'finished']);
 
         $member_sub_learn = MemberSubLearn::where(['user_id' => $user_id, 'sub_learn_id' => $sub_learn_id])->first();
 
@@ -156,4 +165,6 @@ class MemberController extends Controller
             return $this->failure($th->getMessage());
         }
     }
+    
+    
 }

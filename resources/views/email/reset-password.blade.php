@@ -77,7 +77,7 @@
 														<tr>
 															<td style="padding-left:60px;padding-top:20px;width:100%;padding-right:0px;">
 																<div style="line-height:10px">
-                                                                    <img src="{{ url("/assets/img/logo/logo2.jpeg") }}" style="display: block; height: auto; border: 0; width: 80px; max-width: 100%;" width="171">
+                                                                    <img src="{{ url("/assets/img/logo/logo_autismart_mail.png") }}" style="display: block; height: auto; border: 0; width: 80px; max-width: 100%;" width="171">
                                                                 </div>
 															</td>
 														</tr>

@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function updateDataUser(Request $request)
     {
-        $validate = $request->only(['name', 'email', 'username', 'position', 'level', 'phone_number', 'age', 'gender', 'city']);
+        $validate = $request->only(['name', 'email', 'username', 'position', 'level', 'bill', 'phone_number', 'age', 'gender', 'city']);
 
         $user = Auth::user();
 
@@ -34,7 +34,7 @@ class UserController extends Controller
 
     public function updateDataUserById(Request $request,$user_id)
     {
-        $validate = $request->only(['name', 'email', 'username', 'position', 'level', 'phone_number', 'age', 'gender', 'city']);
+        $validate = $request->only(['name', 'email', 'username', 'position', 'level', 'bill', 'phone_number', 'age', 'gender', 'city']);
 
         $user = User::find($user_id);
 
