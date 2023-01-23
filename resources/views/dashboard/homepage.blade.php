@@ -16,8 +16,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
                       </div>
-                      <div class="text-value-lg">3</div>
-                      <div>Admin</div>
+                      <div class="text-value-lg">{{count($user)}}</div>
+                      <div><h5>User</h5></div>
                     </div>
                     <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
                       <canvas class="chart" id="card-chart1" height="70"></canvas>
@@ -33,8 +33,8 @@
                           <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-location-pin"></use>
                         </svg>
                       </button>
-                      <div class="text-value-lg">1000</div>
-                      <div>Students</div>
+                      <div class="text-value-lg">{{count($basic)}}</div>
+                      <div><h5>Basic Students</h5></div>
                     </div>
                     <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
                       <canvas class="chart" id="card-chart2" height="70"></canvas>
@@ -53,8 +53,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
                       </div>
-                      <div class="text-value-lg">1200</div>
-                      <div>Members</div>
+                      <div class="text-value-lg">{{count($intermediate)}}</div>
+                      <div><h5>Intermediate Students</h5></div>
                     </div>
                     <div class="c-chart-wrapper mt-3" style="height:70px;">
                       <canvas class="chart" id="card-chart3" height="70"></canvas>
@@ -73,8 +73,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
                       </div>
-                      <div class="text-value-lg">9.823</div>
-                      <div>Members online</div>
+                      <div class="text-value-lg">{{count($advanced)}}</div>
+                      <div><h5>Advanced Students</h5></div>
                     </div>
                     <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
                       <canvas class="chart" id="card-chart4" height="70"></canvas>

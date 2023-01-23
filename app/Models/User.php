@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification());
     }
+
+    public function member_learn()
+    {
+        return $this->hasMany(MemberLearn::class, 'user_id');
+    }
 }

@@ -26,6 +26,6 @@ class MemberLearn extends Model
     
     public function learn()
     {
-        $this->belongsTo(Learns::class, 'learn_id');
+       return  $this->belongsTo(Learns::class, 'learn_id');
     }
 }

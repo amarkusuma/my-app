@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BankSoalController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LearnsController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
@@ -24,12 +25,7 @@ use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 
 Route::group(['middleware' => ['get.menu']], function () {
-    Route::get('/', function () {
-        if (Auth::check()) {
-            return view('dashboard.homepage');
-        }
-        return view('auth.login');
-    });
+    Route::get('/', [DashboardController::class, 'dashboard']);
 
     Route::group(['middleware' => ['role:user']], function () {
         Route::get('/404', function () {        return view('dashboard.404'); });
