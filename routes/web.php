@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LearnsController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\SubLearnController;
 use App\Http\Controllers\SubSoalController;
 use App\Http\Controllers\UsersController;
@@ -40,8 +41,11 @@ Route::group(['middleware' => ['get.menu']], function () {
     Auth::routes();
     Route::group(['middleware' => ['role:admin|user', 'auth']], function () {
         Route::resource('bread',  'BreadController');   //create BREAD (resource)
-        Route::resource('users',        'UsersController');
+        Route::resource('users',  'UsersController');
         Route::get('users-list', [UsersController::class, 'getUser'])->name('users.list');
+        Route::resource('students', 'StudentsController')->except(['create', 'store', 'edit', 'update', 'show']);
+        Route::get('students-list', [StudentsController::class, 'getUser'])->name('students.list');
+
         Route::resource('roles',        'RolesController');
         Route::resource('mail',        'MailController');
         Route::get('prepareSend/{id}',        'MailController@prepareSend')->name('prepareSend');
