@@ -17,7 +17,7 @@
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Action</a><a class="dropdown-item" href="#">Another action</a><a class="dropdown-item" href="#">Something else here</a></div>
                       </div>
                       <div class="text-value-lg">{{count($user)}}</div>
-                      <div><h5>User</h5></div>
+                      <div><h5>Students</h5></div>
                     </div>
                     <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
                       <canvas class="chart" id="card-chart1" height="70"></canvas>
