@@ -16,6 +16,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BankSoalController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\LearnsController;
 use App\Http\Controllers\NewsCategoryController;
 use App\Http\Controllers\NewsController;
@@ -84,6 +85,8 @@ Route::group(['middleware' => ['get.menu']], function () {
         Route::get('sub-learn-edit/{id}/{learn_id}', [SubLearnController::class, 'edit'])->name('sub-learn.edit');
         Route::post('sub-learn-update/{id}', [SubLearnController::class, 'update'])->name('sub-learn.update');
 
+        Route::resource('feedback',  'FeedbackController');
+        Route::get('feedback-list', [FeedbackController::class, 'getFeedback'])->name('feedback.list');
     });
 });
 

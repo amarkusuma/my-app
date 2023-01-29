@@ -149,6 +149,7 @@ class MenusNewTableSeeder extends Seeder
             $this->insertLink('user,admin', 'News',   '/news');
             $this->insertLink('user,admin', 'Bank Soal',   '/bank-soal');
             $this->insertLink('user,admin', 'Learns',   '/learns');
+            $this->insertLink('user,admin', 'Feedback',   '/feedback');
         $this->endDropdown();
 
         /* Create top menu */

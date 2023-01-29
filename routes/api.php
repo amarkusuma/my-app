@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\QuestionController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Http\Request;
 
 /*
@@ -53,6 +54,8 @@ Route::name('api.')->group(function() {
 
     Route::post('detail-user', [UserController::class, 'detailUser']);
     Route::post('request-reset-password', [UserController::class, 'requestResetPassword'])->name('request-reset-password');
+
+    Route::post('feedback-store', [FeedbackController::class, 'feedbackStore'])->name('feedback.store');
     
     Route::group(['middleware' => ['auth:sanctum']], function () {
         // Route::get('get-news', [NewsController::class, 'newsList']);
