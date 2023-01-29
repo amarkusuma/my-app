@@ -19,6 +19,7 @@
                             <th>No</th>
                             <th>Username</th>
                             <th>E-mail</th>
+                            <th>Phone</th>
                             <th>Roles</th>
                             <th>Email verified at</th>
                             <th style="width: 10%">Action</th>
@@ -47,6 +48,7 @@
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data: 'name', name: 'name'},
               {data: 'email', name: 'email'},
+              {data: 'phone_number', name: 'phone_number'},
               {data: 'menuroles', name: 'menuroles'},
               {data: 'email_verified_at', name: 'email_verified_at'},
               {

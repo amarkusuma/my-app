@@ -34,6 +34,10 @@ class FeedbackController extends Controller
                     $user = $row->user ? $row->user->name : '';
                     return $user;
                 })
+                ->addColumn('email', function($row){
+                    $email = $row->user ? $row->user->email : '';
+                    return $email;
+                })
                 ->addColumn('action', function($row){
                     $actionBtn = '<div class="d-flex justify-content-between"><a href="'.route('feedback.edit', $row->id).'" class="edit btn btn-success btn-sm">Edit</a>
                     <a href="javascript:void(0)" onclick="deleteThis(event)" class="delete btn btn-danger btn-sm" data-id="'.$row->id.'">Delete</a></div>';

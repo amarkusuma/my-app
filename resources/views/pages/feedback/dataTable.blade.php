@@ -20,6 +20,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>User</th>
+                                <th>Email</th>
                                 <th>Comment</th>
                                 <th style="width: 10%">Action</th>
                             </tr>
@@ -47,6 +48,7 @@
               columns: [
                   {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                   {data: 'user', name: 'user'},
+                  {data: 'email', name: 'email'},
                   {data: 'comment', name: 'comment'},
                   {
                       data: 'action',
