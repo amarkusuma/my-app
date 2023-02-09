@@ -179,7 +179,6 @@
         value_progess.html(progess_data+'%')
         progess_bar.css('width', progess_data+'%');
 
-        
             var refreshInterval1 = setInterval(() => {
                 if (progess_data <= 80) {
                     progess_data += 1;

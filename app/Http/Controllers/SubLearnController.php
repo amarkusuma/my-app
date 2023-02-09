@@ -58,6 +58,7 @@ class SubLearnController extends Controller
           'sub_name' => 'required',
           'pdf' => 'nullable|max:51200|mimes:pdf,PDF',
           'video' => 'nullable',
+          'bank_soal_id' => 'required|exists:bank_soal,id',
         ]);
 
         if ($request->has('soal_images')) {
@@ -143,6 +144,7 @@ class SubLearnController extends Controller
           'sub_name' => 'required',
           'pdf' => 'nullable|max:51200|mimes:pdf,PDF',
           'video' => 'nullable',
+          'bank_soal_id' => 'required|exists:bank_soal,id',
         ]);
 
         $sub_learn = SubLearns::find($id);
