@@ -19,6 +19,7 @@
                             @if($errors->has('sub_name'))
                                 <div class="invalid-feedback">{{ $errors->first('sub_name') }}</div>
                             @endif
+                            <span class="invalid-feedback" id="sub_name_error"></span>
                         </div>
 
                         <div class="form-group">
@@ -32,6 +33,7 @@
                             @if($errors->has('bank_soal_id'))
                                 <div class="invalid-feedback">{{ $errors->first('bank_soal_id') }}</div>
                             @endif
+                            <span class="invalid-feedback" id="bank_soal_id_error"></span>
                         </div>
 
                         <div class="form-group">
@@ -40,6 +42,7 @@
                             @if($errors->has('min_correct'))
                                 <div class="invalid-feedback">{{ $errors->first('min_correct') }}</div>
                             @endif
+                            <span class="invalid-feedback" id="min_correct_error"></span>
                         </div>
 
                         {{-- <div class="form-group">
@@ -75,6 +78,7 @@
                             @if($errors->has('video'))
                                 <div class="invalid-feedback">{{ $errors->first('video') }}</div>
                             @endif
+                            <span class="invalid-feedback" id="video_error"></span>
                             @if ($data->video_url)
                                 <div class="mt-2">
                                     <a href="{{$data->video_url}}" target="_blank" rel="noopener noreferrer">Link Video</a>
@@ -88,6 +92,7 @@
                             @if($errors->has('limit_soal'))
                                 <div class="invalid-feedback">{{ $errors->first('limit_soal') }}</div>
                             @endif
+                            <span class="invalid-feedback" id="limit_soal_error"></span>
                         </div>
 
                         <div class="form-group d-flex align-items-center">
@@ -206,7 +211,8 @@
     $('.btn-submit').on('click', function (e) {
         e.preventDefault();
         $('.progress').show();
-
+        $('.form-control').removeClass('is-invalid');
+        
         var form = $(this).closest('form');
         var formData = new FormData(form[0]);
 
@@ -252,6 +258,12 @@
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
+                var { errors } = $.parseJSON(jqXHR.responseText);
+                $('.progress').hide();
+                $.each(errors, function (key, val) {
+                    $("#" + key + "_error").text(val[0]);
+                    $(`[name=${key}]`).addClass('is-invalid');
+                });
             }
         });
     });
